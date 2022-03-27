@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>New Tab</title>
+    <script src="libraries/p5.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="interface.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+ 
+  </head>
+
+  <body>
+
+    <div id="grid">
+
+      <div id="gridHeader"></div>
+
+      <div id="gridCenter">
+        <p id="time"></p>
+        <p id="date"></p>
+      </div>
+
+      <div id="bottlesArea"></div>
+
+      <div id="cF">
+
+        <div id="cFBottomDecor"></div>
+
+        <div id="cFHeader">New Bottle</div>
+
+        <div id="cFRow1">
+
+          <div id="cFSubject" class="cFLabels">
+            <label for="fSubject">Subject</label><br>
+            <button id="fSubject"><br></button>
+            <!-- <svg src="/images/down.svg" id="downIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.751 55.751" xmlns:v="https://vecta.io/nano"><path d="M31.836 43.006c.282-.281.518-.59.725-.912L54.17 20.485c2.107-2.109 2.109-5.528 0-7.638s-5.527-2.109-7.638 0l-18.608 18.61L9.217 12.753a5.4 5.4 0 0 0-7.637 0A5.38 5.38 0 0 0 0 16.571c-.002 1.382.527 2.764 1.582 3.816l21.703 21.706a5.32 5.32 0 0 0 .729.913c1.078 1.078 2.496 1.597 3.91 1.572a5.37 5.37 0 0 0 3.912-1.572z"/></svg> -->
+            <ul class="fsubjects">
+              <ul>Subject 1</ul>
+              <ul>Subject 2</ul>
+              <ul>Subject 3</ul>
+            </ul>
+            <p>Required</p>
+          </div>
+  
+          <div id="cFDueDate" class="cFLabels">
+            <label for="fDueDate">Due Date</label><br>
+            <input type="date" id="fDueDate" autocomplete="off">
+          </div>
+        </div>
+        
+        <div id="cFTitle" class="cFLabels">
+          <label for="fTitle">Title</label><br>
+          <input type="text" id="fTitle" maxlength="55" autocomplete="off">
+          <p>Required</p>
+        </div>
+
+        <div id="cFDetails" class="cFLabels">
+          <label for="fDetails">Details</label><br>
+          <textarea id="fDetails" rows="8" autocomplete="off"></textarea>
+        </div>
+
+        <div id="cFButtons">
+          <button onclick="cF()" id="cFCancelButton">Cancel</button>
+          <button onclick="createBottle()" id="cFCreateButton">Create Bottle</button>
+        </div>
+
+      </div>
+
+      <div id="vB">
+
+        <svg src="/images/trash.svg" id="vBTrashButton" onclick="vBDelete()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:v="https://vecta.io/nano"><path d="M432 96h-48V32c0-17.672-14.328-32-32-32H160c-17.672 0-32 14.328-32 32v64H80c-17.672 0-32 14.328-32 32v32h416v-32c0-17.672-14.328-32-32-32zm-240 0V64h128v32H192zM80 480.004C80 497.676 94.324 512 111.996 512h288.012C417.676 512 432 497.676 432 480.008v-.004V192H80v288.004zM320 272c0-8.836 7.164-16 16-16s16 7.164 16 16v160c0 8.836-7.164 16-16 16s-16-7.164-16-16V272zm-80 0c0-8.836 7.164-16 16-16s16 7.164 16 16v160c0 8.836-7.164 16-16 16s-16-7.164-16-16V272zm-80 0c0-8.836 7.164-16 16-16s16 7.164 16 16v160c0 8.836-7.164 16-16 16s-16-7.164-16-16V272z"/></svg>
+        <svg src="/images/pen.svg" id="vBEditButton" onclick="vBEdit()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220.001 220.001" xmlns:v="https://vecta.io/nano"><path d="M0 220l59.34-6.14-53.197-53.199zM132.018 34.787l53.197 53.197L69.568 203.631 16.37 150.434 132.018 34.787zm80.678 25.715c9.738-9.738 9.742-25.527 0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268 0l-17.346 17.347 53.199 53.196 17.345-17.345z"/></svg>
+        <div onclick="vBClose()" id="vBCloseButton">&#10006</div>
+        <div id="vBHeader">
+          <div id="vBTitle"></div>
+          <div id="vBSubject"></div>
+        </div>
+
+        <div id="vBDueDate">
+          <svg src="/images/dueDate.png" id="dueDateIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:v="https://vecta.io/nano"><path d="M480 80h-80V48c0-17.672-14.328-32-32-32s-32 14.328-32 32v32H176V48c0-17.672-14.328-32-32-32s-32 14.328-32 32v32H32C14.326 80 0 94.326 0 112v32h512v-32c0-17.674-14.326-32-32-32zM0 464c0 17.674 14.326 32 32 32h448c17.674 0 32-14.326 32-32V176H0v288zm352-224h64v64h-64v-64zm-128 0h64v64h-64v-64zm0 128h64v64h-64v-64zM96 240h64v64H96v-64zm0 128h64v64H96v-64z"/></svg>
+          <p id="vBDueTime"></p>
+          <p id="vBCountdown"></p>
+        </div>
+
+        <div id="vBProgress">
+          
+          <svg src="/images/loading.svg" id="loadingIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 472.615 472.615" xmlns:v="https://vecta.io/nano"><path d="M236.308 0c-13.153 0-23.817 10.663-23.817 23.817v82.961c0 13.154 10.663 23.817 23.817 23.817a23.82 23.82 0 0 0 23.817-23.817V23.817C260.125 10.664 249.461 0 236.308 0zm-74.75 127.875l-58.662-58.662c-9.301-9.301-24.381-9.301-33.683 0a23.82 23.82 0 0 0 0 33.682l58.663 58.663a23.82 23.82 0 0 0 33.682 0c9.301-9.302 9.301-24.382 0-33.683zm-54.779 84.616H23.817C10.663 212.491 0 223.154 0 236.308s10.663 23.817 23.817 23.817h82.962c13.154 0 23.817-10.663 23.817-23.817s-10.664-23.817-23.817-23.817zm54.779 98.566a23.82 23.82 0 0 0-33.682 0L69.213 369.72c-9.301 9.301-9.301 24.381 0 33.682s24.382 9.301 33.683 0l58.662-58.662c9.301-9.301 9.301-24.381 0-33.683zm74.75 30.963c-13.153 0-23.817 10.663-23.817 23.817v82.961c0 13.154 10.663 23.817 23.817 23.817s23.817-10.663 23.817-23.817v-82.961c0-13.153-10.664-23.817-23.817-23.817zm167.094 27.701l-58.662-58.663a23.82 23.82 0 0 0-33.683 0c-9.301 9.302-9.301 24.382 0 33.683l58.663 58.662c9.301 9.301 24.381 9.301 33.682 0s9.301-24.382 0-33.682zm45.397-157.23h-82.962c-13.154 0-23.818 10.662-23.818 23.817a23.82 23.82 0 0 0 23.818 23.817h82.962c13.154 0 23.817-10.663 23.817-23.817s-10.664-23.817-23.817-23.817zM403.402 69.213c-9.301-9.301-24.381-9.301-33.682 0l-58.663 58.662c-9.301 9.301-9.301 24.381 0 33.683a23.82 23.82 0 0 0 33.683 0l58.662-58.663c9.301-9.301 9.301-24.381 0-33.682z"/></svg>
+          <p id="vBPercent"></p>
+          <div id="sliderWrap">
+            <input type="range" id="range" min="0" max="100" step="5" value="0">
+            <div id="track">
+              <div id="track-inner"></div>
+              <div id="thumb"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="vBDetails"></div>
+
+      </div>
+
+      <div id="eB">
+
+        <div id="eBHeader">Edit Bottle</div>
+
+        <div id="eBRow1">
+          <div id="eBSubject" class="eBLabels">
+            <label for="bSubject">Subject</label><br>
+            <button id="bSubject"><br></button>
+            <ul class="bsubjects">
+              <ul>Subject 1</ul>
+              <ul>Subject 2</ul>
+              <ul>Subject 3</ul>
+            </ul>
+            <p>Required</p>
+          </div>
+  
+          <div id="eBDueDate" class="eBLabels">
+            <label for="bDueDate">Due Date</label><br>
+            <input type="date" id="bDueDate" autocomplete="off">
+          </div>
+        </div>
+        
+        <div id="eBTitle" class="eBLabels">
+          <label for="bTitle">Title</label><br>
+          <input type="text" id="bTitle" maxlength="55" autocomplete="off">
+          <p>Required</p>
+        </div>
+
+        <div id="eBDetails" class="eBLabels">
+          <label for="bDetails">Details</label><br>
+          <textarea id="bDetails" rows="8" autocomplete="off"></textarea>
+        </div>
+
+        <div id="eBButtons">
+          <button onclick="eBClose(), vB()" id="eBCancelButton">Cancel</button>
+          <button onclick="eBSave()" id="eBSaveButton">Save Bottle</button>
+        </div>
+
+      </div>
+      
+      <div id="qV">
+        <div id="qVTitle"></div>
+        <div id="qVSubject"></div>
+      </div>
+
+      <div id="gridFooter">
+        <div id="footerLeftSpace"></div>
+        <div id="quoteArea">
+          <p id="quote"></p> 
+          <p id="quoteBy"></p>
+        </div>
+        <button onclick="cF()" id="newTaskButton" alt="Create new task"></button>
+      </div>
+
+    </div>
+
+    <!-- Javascript Sketch -->
+    <div id="interface-div"></div>
+
+  </body>
+
+</html>

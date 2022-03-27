@@ -1,0 +1,674 @@
+* {
+  --green: #3d814b;
+  --darkgreen: #316b40;
+  --lightgray: rgb(221, 221, 221);
+  --gray: rgb(177, 177, 177);
+  --yellowPenHover: #df9100;
+  --redTrashHover: rgb(207, 0, 0);
+  --redAlertText: rgb(202, 0, 0);
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  color: white;
+  background-repeat: no-repeat;
+  background-size: contain;
+  overflow: hidden;
+  user-select: none;
+}
+
+html {
+  background: url(/images/background.png) no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+
+::selection {
+  color: white;
+  background: rgb(0, 0, 0);
+}
+
+#grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100vw;
+}
+
+#gridHeader {
+  width: 100vw;
+  height: 70px;
+}
+
+#gridCenter {
+  width: 100vw;
+  height: 550px;
+}
+
+#bottlesArea {
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 100px;
+  row-gap: 40%;
+  align-content: center;
+}
+
+#bottlesArea * {
+  height: 100px;
+}
+
+.bottle:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgb(212, 212, 212);
+}
+
+#qV {
+  position: absolute;
+  width: 280px;
+  height: 80px;
+  box-shadow: 0px 0px 30px rgb(80, 80, 80, 0.4);
+  background: rgba(250, 250, 250, 0.95);
+  border-radius: 10px;
+  display: none;
+  transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+  z-index: 2;
+  box-shadow: 0 0 0 0.4em gray;
+}
+
+#qV * {
+  margin-left: 16px;
+  color: black;
+}
+
+#qVTitle {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+#qVSubject {
+  font-size: 14px;
+}
+
+#cF,
+#eB {
+  position: absolute;
+  right: 10px;
+  bottom: 120px;
+  width: 420px;
+  height: 510px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  transition: opacity 0.25s;
+  -webkit-transition: opacity 0.25s;
+  display: none;
+  opacity: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 15px;
+  color: black;
+  font-family: "Manrope", sans-serif;
+  box-shadow: 0px 0px 30px rgb(80, 80, 80, 0.4);
+}
+
+#cF *,
+#eB * {
+  margin: 0px 10px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+
+#cFRow1,
+#eBRow1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: -40px;
+  margin-top: 5px;
+  position: relative;
+  left: -10px;
+}
+
+#fDueDate,
+#bDueDate {
+  width: 130px;
+  font-size: 14px;
+}
+
+#fDueDate:hover,
+#bDueDate:hover {
+  cursor: pointer;
+}
+
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+#cF * input,
+#eB * input {
+  border-radius: 5px;
+  border: none;
+  padding: 8px 8px;
+  height: 16px;
+}
+
+#cF p,
+#eB p {
+  font-size: 12px;
+  color: var(--redAlertText);
+  margin-top: -1px;
+}
+
+#downIcon {
+  position: absolute;
+  left: 150px;
+  top: 26px;
+  width: 16px;
+  height: 16px;
+  fill: #c5c5c5;
+  padding: 4px;
+  background-color: white;
+}
+
+#downIcon:hover {
+  cursor: pointer;
+}
+
+#fSubject,
+#bSubject {
+  width: 195px;
+  background: white;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: transparent;
+  color: black;
+  line-height: 28px;
+  font-size: 14px;
+  padding: 0 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+#fSubject:focus,
+#bSubject:focus {
+  border: solid;
+  border-width: 2px;
+  border-color: var(--green);
+}
+
+.fsubjects,
+.bsubjects {
+  display: none;
+  position: absolute;
+  margin: 0;
+  border: solid;
+  border-width: 2px;
+  border-color: var(--gray);
+  background: #ffffff;
+  width: 240px;
+  border-radius: 5px;
+}
+
+.fsubjects > ul,
+.bsubjects > ul {
+  position: relative;
+  left: -50px;
+  list-style-position: inside;
+  padding-left: 10px;
+  padding-right: 30px;
+  line-height: 25px;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.233);
+}
+
+.fsubjects > ul:hover,
+.bsubjects > ul:hover {
+  background: var(--lightgray);
+  cursor: pointer;
+}
+
+#fDetails,
+#bDetails {
+  resize: none;
+  border-radius: 6px;
+  border: none;
+  padding: 8px 9px;
+  line-height: 1.5em;
+}
+
+#fDetails::-webkit-scrollbar,
+#vBDetails::-webkit-scrollbar,
+#bDetails::-webkit-scrollbar {
+  background-color: #dddddd;
+  width: 10px;
+  border-radius: 10px;
+}
+
+#fDetails::-webkit-scrollbar-thumb,
+#vBDetails::-webkit-scrollbar-thumb,
+#bDetails::-webkit-scrollbar-thumb {
+  background-color: #9c9c9c;
+  border-radius: 10px;
+}
+
+#cF *:focus,
+#eB *:focus {
+  outline-color: var(--darkgreen);
+}
+
+#fTitle,
+#fDetails,
+#bTitle,
+#bDetails {
+  width: calc(100% - 35px);
+  font-size: 14px;
+}
+
+#cFHeader,
+#eBHeader {
+  background-color: gray;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-family: "Manrope", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0px 0px -10px 0px;
+  border-radius: 8px 8px 0px 0px;
+  height: 25px;
+}
+
+#cFHeader:hover,
+#eBHeader:hover {
+  user-select: none;
+  cursor: auto;
+}
+
+.cFLabels,
+.eBLabels {
+  line-height: 22px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+#cFButtons,
+#eBButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: calc(100% - 20px);
+  position: absolute;
+  bottom: 15px;
+}
+
+#cFButtons *,
+#eBButtons * {
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  text-align: center;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+#cFButtons *:hover,
+#eBButtons *:hover {
+  cursor: pointer;
+}
+
+#cFCancelButton,
+#eBCancelButton {
+  background-color: white;
+  color: black;
+}
+
+#cFCancelButton:hover,
+#eBCancelButton:hover {
+  background-color: #f3f3f3;
+}
+
+#cFCreateButton,
+#eBSaveButton {
+  background-color: var(--green);
+  color: white;
+}
+
+#cFCreateButton:hover,
+#eBSaveButton:hover {
+  background-color: var(--darkgreen);
+}
+
+#cFBottomDecor {
+  position: absolute;
+  transform: rotateY(0deg) rotate(45deg);
+  border-radius: 5px;
+  right: 14px;
+  bottom: -10px;
+  width: 30px;
+  height: 30px;
+  background-color: inherit;
+}
+
+#vB {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 520px;
+  height: 230px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  transition: opacity 0.25s;
+  -webkit-transition: opacity 0.25s;
+  flex-direction: column;
+  justify-content: flex-end;
+  row-gap: 50px;
+  color: black;
+  font-family: "Manrope", sans-serif;
+  box-shadow: 0px 0px 30px rgb(80, 80, 80, 0.4);
+  display: none;
+}
+
+#vBTrashButton {
+  position: absolute;
+  right: 80px;
+  top: 18px;
+  background-color: transparent;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  padding: 3px;
+  fill: white;
+}
+
+#vBTrashButton:hover {
+  background-color: white;
+  cursor: pointer;
+  fill: var(--redTrashHover);
+}
+
+#vBEditButton {
+  position: absolute;
+  right: 45px;
+  top: 18px;
+  background-color: transparent;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  padding: 3px;
+  fill: white;
+}
+
+#vBEditButton:hover {
+  background-color: white;
+  cursor: pointer;
+  fill: var(--yellowPenHover);
+}
+
+#vBCloseButton {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  right: 10px;
+  top: 18px;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  line-height: 25px;
+}
+
+#vBCloseButton:hover {
+  position: absolute;
+  color: gray;
+  background-color: white;
+  cursor: pointer;
+}
+
+#vB:hover {
+  user-select: text;
+}
+
+#vB * {
+  margin: 0px 10px 0px 13px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+
+#vBHeader {
+  background-color: gray;
+  color: white;
+  padding: 20px 10px 10px 10px;
+  font-family: "Manrope", sans-serif;
+  border-radius: 8px 8px 0px 0px;
+  margin: 0px 0px -10px 0px;
+  height: 54px;
+  line-height: 22px;
+}
+
+#vBTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 16px;
+  word-break: normal;
+  width: 320px;
+}
+
+#vBSubject {
+  margin-top: 2px;
+  font-size: 15px;
+  margin-left: 16px;
+}
+
+#vBDueDate {
+  font-size: 16px;
+  position: relative;
+  top: 40px;
+}
+
+#dueDateIcon {
+  width: 20px;
+  height: 20px;
+  fill: rgb(112, 112, 112);
+  pointer-events: none;
+  user-select: none;
+}
+
+#vBDueTime {
+  position: absolute;
+  left: 40px;
+  top: -10px;
+}
+
+#vBCountdown {
+  font-size: 13px;
+  font-weight: 600;
+  color: #df9100;
+  position: absolute;
+  left: 40px;
+  top: 10px;
+}
+
+#vBProgress {
+  font-size: 16px;
+  position: relative;
+  top: 65px;
+  z-index: 1;
+}
+
+#loadingIcon {
+  width: 20px;
+  height: 20px;
+  fill: rgb(112, 112, 112);
+  pointer-events: none;
+  user-select: none;
+}
+
+#vBPercent {
+  position: absolute;
+  left: 40px;
+  top: -2px;
+}
+
+/* Reference: https://codepen.io/steveholgado/pen/OEpGXq */
+#sliderWrap {
+  width: calc(100% - 25px);
+  position: absolute;
+  top: 35px;
+  z-index: 2;
+}
+
+#range {
+  width: 100%;
+  height: 18px;
+  top: -10px;
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  left: -8px;
+}
+
+#track {
+  width: calc(100% - 8px);
+  height: 8px;
+  background: #a8a8a8;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  left: -12px;
+  border-radius: 20px;
+}
+
+#track-inner {
+  width: 10px;
+  height: 100%;
+  background: #ff7a85;
+  position: relative;
+  left: -15px;
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+#thumb {
+  width: 18px;
+  height: 18px;
+  background: #ff2c2c;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-120%, -50%);
+  pointer-events: none;
+}
+
+#vBDetails {
+  font-size: 13px;
+  height: calc(100% - 260px);
+  width: calc(100% - 65px);
+  overflow-y: auto;
+  word-wrap: break-word;
+  position: relative;
+  top: 110px;
+  left: 5px;
+  padding: 0px 10px;
+  border-radius: 5px;
+}
+
+#eB {
+  top: 50px;
+  left: 50px;
+}
+
+#bDetails {
+  height: 175px;
+}
+
+#gridFooter {
+  width: 100vw;
+  height: 85px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#footerLeftSpace {
+  width: 100px;
+}
+
+#newTaskButton {
+  position: relative;
+  bottom: 30px;
+  right: 16px;
+  font-family: "Manrope", sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  width: 80px;
+  height: 100px;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-image: url("/images/newBottle.png");
+  background-position: 10px 10px;
+  background-size: 60px;
+  border-radius: 20px;
+}
+
+#newTaskButton:hover {
+  cursor: pointer;
+}
+
+#time {
+  font-family: "Roboto", sans-serif;
+  font-size: 150px;
+  color: white;
+  text-align: center;
+}
+
+#date {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  margin-top: -150px;
+  font-weight: 400;
+}
+
+#quoteArea {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  user-select: text;
+  text-align: center;
+  transition-duration: 0.35s;
+  transform: translateY(14px);
+}
+
+#quoteArea:hover {
+  transform: translateY(-5px);
+  transition-duration: 0.35s;
+}
+
+#quote {
+  font-size: 18px;
+  color: white;
+  width: auto;
+  margin-bottom: -10px;
+}
+
+#quoteBy {
+  font-size: 14px;
+  color: rgb(233, 233, 233);
+  opacity: 0;
+  transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+}
