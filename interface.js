@@ -3,17 +3,20 @@
 // })
 
 //** Variables **********
-var cFShowing = false;
-var cFChecked = false;
-var vBShowing = false;
-var eBChecked = false;
-var eBShowing = false;
+var createFormShowing = false;
+var createFormChecked = false;
+var viewBottleShowing = false;
+var editBottleChecked = false;
+var editBottleFormShowing = false;
+var addSubjectFormShowing = false;
+var addSubjectFormChecked = false;
 var formChecked = false;
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 var bottles = [];
 var currentBottle = null;
-
+var subjectsList = [];
+var selectedColor = "colorGray";
 
 //** Preload *************
 
@@ -37,36 +40,38 @@ function setup() {
   range.oninput = (e) => onSliderMove(e.target.value);
 
   // Subject Dropdown
-  var cFSubjectSelector = $('#fSubject');
-  var cFSubjectList = $('.fsubjects');
+  var createFormSubjectSelector = $('#formSubject');
+  var createFormSubjectList = $('.formSubjectsList');
 
-  cFSubjectSelector.click(function() {
-    cFSubjectSelector.toggleClass('active');
-    cFSubjectList.slideToggle(200);
+  createFormSubjectSelector.click(function() {
+    createFormSubjectSelector.toggleClass('active');
+    createFormSubjectList.slideToggle(200);
   });
 
-  cFSubjectList.mouseup(function(e) {
+  createFormSubjectList.mouseup(function(e) {
     var selectedSubject = $(e.target).text();
-    cFSubjectSelector.html(selectedSubject); // replaces subject name
-    cFSubjectSelector.click();
+    createFormSubjectSelector.html(selectedSubject); // replaces subject name
+    createFormSubjectSelector.click();
   });  
   
   // Subject Dropdown
-  var eBSubjectSelector = $('#bSubject');
-  var eBSubjectList = $('.bsubjects');
+  var editBottleSubjectSelector = $('#bottleSubject');
+  var editBottleSubjectList = $('.bottleSubjectsList');
 
-  eBSubjectSelector.click(function() {
-    eBSubjectSelector.toggleClass('active');
-    eBSubjectList.slideToggle(200);
+  editBottleSubjectSelector.click(function() {
+    editBottleSubjectSelector.toggleClass('active');
+    editBottleSubjectList.slideToggle(200);
   });
 
-  eBSubjectList.mouseup(function(e) {
+  editBottleSubjectList.mouseup(function(e) {
     var selectedSubject = $(e.target).text();
-    eBSubjectSelector.html(selectedSubject); // replaces subject name
-    eBSubjectSelector.click();
+    editBottleSubjectSelector.html(selectedSubject); // replaces subject name
+    editBottleSubjectSelector.click();
   });
-  
 
+  // Create Subject Form
+  addSubjectSelectedColor();
+  
 }
 
 //** Draw ****************
@@ -77,25 +82,33 @@ function draw() {
   quoteByHover();
 
   // Form Checker
-  if (cFShowing) {
-    formCheck("cF");
+  if (createFormShowing) {
+    formCheck("createForm");
     if (formChecked) {
-      cFChecked = true;
+      createFormChecked = true;
     }
     else {
-      cFChecked = false;
+      createFormChecked = false;
     }
   }
-  else if (eBShowing) {
-    formCheck("eB");
+  else if (editBottleFormShowing) {
+    formCheck("editBottle");
     if (formChecked) {
-      eBChecked = true;
+      editBottleChecked = true;
     }
     else {
-      eBChecked = false;
+      editBottleChecked = false;
     }
   }
-
+  if (addSubjectFormShowing) {
+    formCheck("addSubjectForm");
+    if (formChecked) {
+      addSubjectFormChecked = true;
+    }
+    else {
+      addSubjectFormChecked = false;
+    }
+  }
 }
 
 function setTime() {
@@ -140,7 +153,7 @@ function setSlider(value) { // Not changing any data, already have data, just ch
   const track = document.querySelector("#track-inner");
   thumb.style.left = `${value}%`;
   track.style.width = `${value}%`;
-  document.getElementById("vBPercent").innerHTML = value + "% complete";
+  document.getElementById("viewBottlePercent").innerHTML = value + "% complete";
 }
 
 class Bottle {
@@ -157,11 +170,11 @@ class Bottle {
 
 function createBottle() { // Creates new bottle div and bottle object
 
-  if (cFChecked) {
-    var subject = document.getElementById("fSubject").innerHTML;
-    var dueDate = document.getElementById("fDueDate").value;
-    var title = document.getElementById("fTitle").value;
-    var details = document.getElementById("fDetails").value;
+  if (createFormChecked) {
+    var subject = document.getElementById("formSubject").innerHTML;
+    var dueDate = document.getElementById("formDueDate").value;
+    var title = document.getElementById("formTitle").value;
+    var details = document.getElementById("formDetails").value;
     var bottlesArea = document.getElementById("bottlesArea");
 
     if (bottles.length < 10) { // bottle limit
@@ -171,8 +184,8 @@ function createBottle() { // Creates new bottle div and bottle object
       var bottle = document.createElement("div");
       bottle.setAttribute("class", "bottle");
       bottle.addEventListener("click", bottlePressed, false);
-      bottle.addEventListener("mouseover", bottleHoveredT, false);
-      bottle.addEventListener("mouseleave", bottleHoveredF, false);
+      bottle.addEventListener("mouseover", bottleHoveredTrue, false);
+      bottle.addEventListener("mouseleave", bottleHoveredFalse, false);
 
       var bottleImg = document.createElement("img");
       bottleImg.setAttribute("src", "images/testBottle.PNG");
@@ -180,25 +193,47 @@ function createBottle() { // Creates new bottle div and bottle object
 
       bottlesArea.append(bottle);
 
-      cF();
+      createForm();
     }
   }
+
 }
 
 function formCheck(formName) {
 
   var formType;
-  if (formName == "cF") { // differentiating between create/edit forms
-    formType = "f";
+
+  if (formName == "addSubjectForm") { // Create subject form
+    var name = document.getElementById(("subjectName"));
+    var form = document.getElementById(formName);
+    if (name.value == "") {
+      name.style.outline = "2px rgb(202, 0, 0) solid"; // red
+      form.getElementsByTagName('p')[0].style.display = "flex"; // "required" text
+      document.getElementById("addSubjectColors").style.marginTop = "20px";
+      formChecked = false;
+    }
+    else {
+      name.style.outline = "2px transparent solid"; 
+      form.getElementsByTagName('p')[0].style.display = "none";
+      document.getElementById("addSubjectColors").style.marginTop = "30px";
+      formChecked = true;
+    }
+    return;
+  } 
+
+  else if (formName == "createForm") { // Create bottle form
+    formType = "form";
   }
-  else {
-    formType = "b";
+
+  else { // Edit bottle form
+    formType = "bottle";
   }
 
   var subject = document.getElementById((formType + "Subject"));
   var title = document.getElementById((formType + "Title"));
   var details = document.getElementById((formType + "Details"));
   var form = document.getElementById(formName);
+  var addButton = document.getElementById(formName + "AddSubjectButton");
 
   // Subjects currently separated for testing purposes
   if (subject.innerHTML == "<br>" && title.value == "") {
@@ -206,19 +241,25 @@ function formCheck(formName) {
   }
   if (subject.innerHTML == "<br>") { // Subject not filled in
     subject.style.border = "2px rgb(202, 0, 0) solid"; // red
+    addButton.style.width = "28px";
+    addButton.style.height = "28px";
+    addButton.style.top = "24px";
     form.getElementsByTagName('p')[0].style.display = "flex"; // "required" text
     formChecked = false;
     details.rows = "7";
   }
   else { // Subject filled in
     subject.style.border = "2px transparent solid"; 
+    addButton.style.width = "32px";
+    addButton.style.height = "32px";
+    addButton.style.top = "22px";
     form.getElementsByTagName('p')[0].style.display = "none";
     formChecked = true;
     details.rows = "8";
   }
   if ((title.value == "" && formChecked) || (title.value == "" && !formChecked)) { // Title not filled in
     title.style.border = "2px rgb(202, 0, 0) solid"; // red
-    form.getElementsByTagName('p')[1].style.display = "flex";
+    form.getElementsByTagName('p')[1].style.display = "flex"; // "required" text
     formChecked = false;
   }
   else if (!formChecked) { // Title is filled in but subject isn't
@@ -235,7 +276,7 @@ function formCheck(formName) {
 }
 
 function clearForm() { // resets form values
-  document.getElementById("fSubject").innerHTML = "<br>";
+  document.getElementById("formSubject").innerHTML = "<br>";
 
   var date = new Date();
   var year = date.getFullYear();
@@ -247,119 +288,119 @@ function clearForm() { // resets form values
   if (day < 10) {
     day = ("0" + day);
   }
-  document.getElementById("fDueDate").value = year + "-" + month + "-" + day;
-  document.getElementById("fTitle").value = "";
-  document.getElementById("fDetails").value = "";
+  document.getElementById("formDueDate").value = year + "-" + month + "-" + day;
+  document.getElementById("formTitle").value = "";
+  document.getElementById("formDetails").value = "";
 }
 
-function cF() { // checks when to show and hide create form
+function createForm() { // checks when to show and hide create form
 
-  if (vBShowing) { // only one form showing at a time
-    vBClose();
+  if (viewBottleShowing) { // only one form showing at a time
+    viewBottleClose();
   }
-  if (eBShowing) {
-    eBClose();
+  if (editBottleFormShowing) {
+    editBottleClose();
   }
 
   clearForm();
-  cFChecked = false;
+  createFormChecked = false;
   formChecked = false;
 
-  var cF = document.getElementById("cF");
-  if (!cFShowing) {
-    cF.style.display = "flex";
-    cF.style.opacity = 1;
-    cFShowing = true;
+  var createForm = document.getElementById("createForm");
+  if (!createFormShowing) {
+    createForm.style.display = "flex";
+    createForm.style.opacity = 1;
+    createFormShowing = true;
   }
   else { 
-    cF.style.opacity = 0;
+    createForm.style.opacity = 0;
     setTimeout(() => {
-      cF.style.display = "none";
+      createForm.style.display = "none";
     }, 300);
-    cFShowing = false;
+    createFormShowing = false;
   }
 
 }
 
-function eB() { // Edit Bottle Form
+function editBottle() { // Edit Bottle Form
 
-  vBClose();
+  viewBottleClose();
 
   // Set visible
-  var eB = document.getElementById("eB");
-  eB.style.display = "flex";
-  eB.style.opacity = 1;
-  eBShowing = true;
+  var editBottle = document.getElementById("editBottle");
+  editBottle.style.display = "flex";
+  editBottle.style.opacity = 1;
+  editBottleFormShowing = true;
 
   var title = currentBottle.title;
   var subject = currentBottle.subject;
   var details = currentBottle.details;
   var duedate = currentBottle.dueDate;
-  document.getElementById("bTitle").value = title;
-  document.getElementById("bSubject").innerText = subject;
-  document.getElementById("bDetails").value = details;
-  document.getElementById("bDueDate").value = duedate;
+  document.getElementById("bottleTitle").value = title;
+  document.getElementById("bottleSubject").innerText = subject;
+  document.getElementById("bottleDetails").value = details;
+  document.getElementById("bottleDueDate").value = duedate;
 
 }
 
-function eBSave() {
+function editBottleSave() {
 
-  if (eBChecked) {
+  if (editBottleChecked) {
 
-    var eB = document.getElementById("eB");
+    var editBottle = document.getElementById("editBottle");
 
-    currentBottle.title = document.getElementById("bTitle").value;
-    currentBottle.subject = document.getElementById("bSubject").innerText;
-    currentBottle.details = document.getElementById("bDetails").value;
-    currentBottle.dueDate = document.getElementById("bDueDate").value;
+    currentBottle.title = document.getElementById("bottleTitle").value;
+    currentBottle.subject = document.getElementById("bottleSubject").innerText;
+    currentBottle.details = document.getElementById("bottleDetails").value;
+    currentBottle.dueDate = document.getElementById("bottleDueDate").value;
     
-    eBClose(); // Close edit bottle form
+    editBottleClose(); // Close edit bottle form
     updateBottle(); // Updates changes to view bottle form
-    vB(); // Reopens view bottle form
+    viewBottle(); // Reopens view bottle form
 
   }
   
 }
 
-function eBClose() {
-  var eB = document.getElementById("eB");
-  eB.style.opacity = 0;
+function editBottleClose() {
+  var editBottle = document.getElementById("editBottle");
+  editBottle.style.opacity = 0;
   setTimeout(() => {
-    eB.style.display = "none";
+    editBottle.style.display = "none";
   }, 300);
-  eBShowing = false;
+  editBottleFormShowing = false;
 }
 
-function vB() { // View Bottle Form
-  var vB = document.getElementById("vB");
-  vB.style.display = "block";
-  vB.style.opacity = 1;
-  vBShowing = true;
+function viewBottle() { // View Bottle Form
+  var viewBottle = document.getElementById("viewBottle");
+  viewBottle.style.display = "block";
+  viewBottle.style.opacity = 1;
+  viewBottleShowing = true;
 }
 
-function vBDelete() {
+function viewBottleDelete() {
   var bottlesArea = document.getElementById("bottlesArea");
   for (i=0; i<bottles.length; i++) {
     if (bottles[i] == currentBottle) {
       bottles.splice(i, 1);
       bottlesArea.removeChild(bottlesArea.children[i]);
-      vBClose();
+      viewBottleClose();
     }
   }
 }
 
-function vBEdit() {
-  vBClose();
-  eB(); // Edit Bottle
+function viewBottleEdit() {
+  viewBottleClose();
+  editBottle(); // Edit Bottle
 }
 
-function vBClose() {
-  var vB = document.getElementById("vB");
-  vB.style.opacity = 0;
+function viewBottleClose() {
+  var viewBottle = document.getElementById("viewBottle");
+  viewBottle.style.opacity = 0;
   setTimeout(() => {
-    vB.style.display = "none";
+    viewBottle.style.display = "none";
   }, 300);
-  vBShowing = false;
+  viewBottleShowing = false;
 }
 
 function bottlePressed(e) {
@@ -369,82 +410,82 @@ function bottlePressed(e) {
   var parent = child.parentNode;
   var i = Array.prototype.indexOf.call(parent.children, child);
 
-  if (eBShowing) { // If in edit mode, stay
+  if (editBottleFormShowing) { // If in edit mode, stay
     return;
   } 
 
   if (currentBottle == bottles[i]) { // If bottle pressed is the one already showing, close
-    vBClose();
+    viewBottleClose();
     currentBottle = null;
     return;
   }
 
-  if (cFShowing) { // Close other forms if they are showing
-    cF();
+  if (createFormShowing) { // Close other forms if they are showing
+    createForm();
   }
 
-  vB(); // Opens up view bottle form
+  viewBottle(); // Opens up view bottle form
   currentBottle = bottles[i];
   updateBottle();
 }
 
-function bottleHoveredT(e) {
+function bottleHoveredTrue(e) {
 
   // Figure out which bottle is hovered
   var child = e.currentTarget;
   var parent = child.parentNode;
   var i = Array.prototype.indexOf.call(parent.children, child);
 
-  var qV = document.getElementById("qV");
-  var qVTitle = document.getElementById("qVTitle");
-  var qVSubject = document.getElementById("qVSubject");
+  var quickView = document.getElementById("quickView");
+  var quickViewTitle = document.getElementById("quickViewTitle");
+  var quickViewSubject = document.getElementById("quickViewSubject");
 
-  qV.style.display = "block";
-  qV.style.opacity = 1;
-  qV.style.top = e.pageY + 50 + "px";
-  qV.style.left = e.pageX + 50 + "px";
+  quickView.style.display = "block";
+  quickView.style.opacity = 1;
+  quickView.style.top = e.pageY + 50 + "px";
+  quickView.style.left = e.pageX + 50 + "px";
 
-  qVTitle.innerHTML = bottles[i].title;
-  qVSubject.innerHTML = bottles[i].subject;
+  quickViewTitle.innerHTML = bottles[i].title;
+  quickViewSubject.innerHTML = bottles[i].subject;
 
 }
 
-function bottleHoveredF(e) {
+function bottleHoveredFalse(e) {
 
-  var qV = document.getElementById("qV");
-  qV.style.opacity = 0;
-  qV.style.display = "none";
+  var quickView = document.getElementById("quickView");
+  quickView.style.opacity = 0;
+  quickView.style.display = "none";
 }
 
 function updateBottle() {
 
   // Copy bottle info to view bottle form
-  document.getElementById("vBTitle").innerText = currentBottle.title;
-  document.getElementById("vBSubject").innerText = currentBottle.subject;
-  document.getElementById("vBDetails").innerText = currentBottle.details;
+  document.getElementById("viewBottleTitle").innerText = currentBottle.title;
+  document.getElementById("viewBottleSubject").innerText = currentBottle.subject;
+  document.getElementById("viewBottleDetails").innerText = currentBottle.details;
   setSlider(currentBottle.progress);
   
   var duedate = new Date(currentBottle.dueDate + "EST0:00:01");
-  document.getElementById("vBDueTime").innerText = "Due " + weekdayNames[duedate.getDay()] + ", " + monthNames[duedate.getMonth()] + " " + duedate.getDate();
+  document.getElementById("viewBottleDueTime").innerText = "Due " + weekdayNames[duedate.getDay()] + ", " + monthNames[duedate.getMonth()] + " " + duedate.getDate();
     
   // Size of view bottle form changes depending on title/details length
   if (currentBottle.details.length > 0) { // Has details
-    if (vBTitle.innerText.length > 19) { // Long title
-      document.getElementById("vBHeader").style.height = "80px";
+    if (viewBottleTitle.innerText.length > 19) { // Long title
+      document.getElementById("viewBottleHeader").style.height = "80px";
     }
     else { // Short title
-      document.getElementById("vBHeader").style.height = "54px";
+      document.getElementById("viewBottleHeader").style.height = "54px";
     }
-    document.getElementById("vB").style.height = "480px";
+    document.getElementById("viewBottle").style.height = "480px";
   }
   else { // No details
-    if (vBTitle.innerText.length > 33) { // Long title
-      document.getElementById("vBHeader").style.height = "80px";
-      document.getElementById("vB").style.height = "260px";
+    if (viewBottleTitle.innerText.length > 33) { // Long title
+      document.getElementById("viewBottleHeader").style.height = "80px";
+      document.getElementById("viewBottle").style.height = "260px";
     }
     else {
-      document.getElementById("vBHeader").style.height = "54px";
-      document.getElementById("vB").style.height = "230px";
+      document.getElementById("viewBottleHeader").style.height = "54px";
+      document.getElementById("viewBottle").style.height = "230px";
     }
   }
 
@@ -457,21 +498,77 @@ function updateBottle() {
     var _day = _hour * 24;
     var days = Math.floor(timeRemaining / _day);
     if (days < 0 && duedate.getDay() == now.getDay() && duedate.getDate() == now.getDate()) {
-      document.getElementById("vBCountdown").innerText = "Due today";
+      document.getElementById("viewBottleCountdown").innerText = "Due today";
     }
     else if (days == 0 && duedate.getDay() - 1 == now.getDay()) {
-      document.getElementById("vBCountdown").innerText = "Due tomorrow";
+      document.getElementById("viewBottleCountdown").innerText = "Due tomorrow";
     }
     else if (days > 0) {
-      document.getElementById("vBCountdown").innerText = days + 1 + " days to complete";
+      document.getElementById("viewBottleCountdown").innerText = days + 1 + " days to complete";
     }
     else if (timeRemaining < 0 && duedate.getDay() + 1 == now.getDay()) {
-      document.getElementById("vBCountdown").innerText = "Overdue by 1 day";
-      document.getElementById("vBCountdown").style.color = "#CA0000";
+      document.getElementById("viewBottleCountdown").innerText = "Overdue by 1 day";
+      document.getElementById("viewBottleCountdown").style.color = "#CA0000";
     }
     else {
-      document.getElementById("vBCountdown").innerText = "Overdue by " + -(days + 1) + " days";
-      document.getElementById("vBCountdown").style.color = "#CA0000";
+      document.getElementById("viewBottleCountdown").innerText = "Overdue by " + -(days + 1) + " days";
+      document.getElementById("viewBottleCountdown").style.color = "#CA0000";
     }
 
+}
+
+function addSubjectForm() {
+  createFormChecked = false;
+  formChecked = false;
+
+  var addSubjectForm = document.getElementById("addSubjectFormOverlay");
+  if (!addSubjectFormShowing) {
+    addSubjectForm.style.display = "flex";
+    addSubjectForm.style.opacity = 1;
+    addSubjectFormShowing = true;
+  }
+  else { 
+    addSubjectForm.style.opacity = 0;
+    setTimeout(() => {
+      addSubjectForm.style.display = "none";
+    }, 300);
+    addSubjectFormShowing = false;
+  }
+}
+
+function addSubjectSelectColor(event) {
+  selectedColor = this.id;
+  addSubjectSelectedColor();
+}
+
+function addSubjectSelectedColor() {
+  var colors = document.getElementById("addSubjectColors");
+  for (i = 0; i < colors.children.length; i++) {
+    if (colors.children[i].id == selectedColor) {
+      var selected = colors.children[i].id.substring(5);
+      colors.children[i].style.border = "6px var(--subject" + selected + ") solid";
+    }
+    else {
+      colors.children[i].style.border = "6px #ffffff00 solid";
+    }
+  }
+}
+
+function addSubjectCreate() {
+
+  if (addSubjectFormChecked) {
+    var name = document.getElementById("subjectName").value;
+
+    if (subjectsList.length < 8) { // subjects limit
+
+      var newSubject = document.createElement("ul");
+      newSubject.appendChild(document.createTextNode(name));
+
+      subjectsList.push(name);
+      document.querySelector(".subjectsList").appendChild(newSubject); 
+
+      addSubjectForm();
+
+    }
+  }
 }

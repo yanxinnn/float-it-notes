@@ -6,6 +6,16 @@
   --yellowPenHover: #df9100;
   --redTrashHover: rgb(207, 0, 0);
   --redAlertText: rgb(202, 0, 0);
+  --subjectGray: #808080;
+  --subjectPink: #DD5F9A;
+  --subjectOrange: #E0720B;
+  --subjectLightBlue: #2D9CE1;
+  --subjectGreen: #316b40;
+  --subjectPurple: #8e51cc;
+  --subjectTeal: #019197;
+  --subjectRed: #e04040;
+  --subjectYellow: #cfbb00;
+  --subjectDarkBlue: #204692;
 }
 
 body {
@@ -69,7 +79,7 @@ html {
   box-shadow: 0px 0px 20px rgb(212, 212, 212);
 }
 
-#qV {
+#quickView {
   position: absolute;
   width: 280px;
   height: 80px;
@@ -83,22 +93,22 @@ html {
   box-shadow: 0 0 0 0.4em gray;
 }
 
-#qV * {
+#quickView * {
   margin-left: 16px;
   color: black;
 }
 
-#qVTitle {
+#quickViewTitle {
   margin-top: 15px;
   font-size: 18px;
 }
 
-#qVSubject {
+#quickViewSubject {
   font-size: 14px;
 }
 
-#cF,
-#eB {
+#createForm,
+#editBottle {
   position: absolute;
   right: 10px;
   bottom: 120px;
@@ -118,15 +128,16 @@ html {
   box-shadow: 0px 0px 30px rgb(80, 80, 80, 0.4);
 }
 
-#cF *,
-#eB * {
+#createForm *,
+#editBottle *,
+#addSubjectForm * {
   margin: 0px 10px;
   font-family: "Manrope", sans-serif;
   font-weight: 500;
 }
 
-#cFRow1,
-#eBRow1 {
+#createFormRow1,
+#editBottleRow1 {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -137,14 +148,14 @@ html {
   left: -10px;
 }
 
-#fDueDate,
-#bDueDate {
+#formDueDate,
+#bottleDueDate {
   width: 130px;
   font-size: 14px;
 }
 
-#fDueDate:hover,
-#bDueDate:hover {
+#formDueDate:hover,
+#bottleDueDate:hover {
   cursor: pointer;
 }
 
@@ -152,16 +163,19 @@ input::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-#cF * input,
-#eB * input {
+#createForm * input,
+#editBottle * input,
+#addSubjectForm * input {
   border-radius: 5px;
   border: none;
   padding: 8px 8px;
   height: 16px;
+  font-size: 14px;
 }
 
-#cF p,
-#eB p {
+#createForm p,
+#editBottle p,
+#addSubjectForm p {
   font-size: 12px;
   color: var(--redAlertText);
   margin-top: -1px;
@@ -182,8 +196,8 @@ input::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-#fSubject,
-#bSubject {
+#formSubject,
+#bottleSubject {
   width: 195px;
   background: white;
   border-radius: 5px;
@@ -197,15 +211,15 @@ input::-webkit-calendar-picker-indicator {
   text-align: left;
 }
 
-#fSubject:focus,
-#bSubject:focus {
+#formSubject:focus,
+#bottleSubject:focus {
   border: solid;
   border-width: 2px;
   border-color: var(--green);
 }
 
-.fsubjects,
-.bsubjects {
+.formSubjectsList,
+.bottleSubjectsList {
   display: none;
   position: absolute;
   margin: 0;
@@ -217,8 +231,8 @@ input::-webkit-calendar-picker-indicator {
   border-radius: 5px;
 }
 
-.fsubjects > ul,
-.bsubjects > ul {
+.formSubjectsList > ul,
+.bottleSubjectsList > ul {
   position: relative;
   left: -50px;
   list-style-position: inside;
@@ -230,14 +244,32 @@ input::-webkit-calendar-picker-indicator {
   border: 1px solid rgba(128, 128, 128, 0.233);
 }
 
-.fsubjects > ul:hover,
-.bsubjects > ul:hover {
+.formSubjectsList > ul:hover,
+.bottleSubjectsList > ul:hover {
   background: var(--lightgray);
   cursor: pointer;
 }
 
-#fDetails,
-#bDetails {
+#createFormAddSubjectButton {
+  position: absolute;
+  left: 175px;
+  top: 22px;
+  width: 32px;
+  height: 32px;
+  line-height: 20px;
+  border: none;
+  border-radius: 0px 3px 3px 0px;
+  font-size: 30px;
+  background-color: rgb(220, 220, 220);
+  color:rgb(44, 44, 44);
+}
+
+#createFormAddSubjectButton:hover {
+  cursor: pointer;
+}
+
+#formDetails,
+#bottleDetails {
   resize: none;
   border-radius: 6px;
   border: none;
@@ -245,36 +277,38 @@ input::-webkit-calendar-picker-indicator {
   line-height: 1.5em;
 }
 
-#fDetails::-webkit-scrollbar,
-#vBDetails::-webkit-scrollbar,
-#bDetails::-webkit-scrollbar {
+#formDetails::-webkit-scrollbar,
+#viewBottleDetails::-webkit-scrollbar,
+#bottleDetails::-webkit-scrollbar {
   background-color: #dddddd;
   width: 10px;
   border-radius: 10px;
 }
 
-#fDetails::-webkit-scrollbar-thumb,
-#vBDetails::-webkit-scrollbar-thumb,
-#bDetails::-webkit-scrollbar-thumb {
+#formDetails::-webkit-scrollbar-thumb,
+#viewBottleDetails::-webkit-scrollbar-thumb,
+#bottleDetails::-webkit-scrollbar-thumb {
   background-color: #9c9c9c;
   border-radius: 10px;
 }
 
-#cF *:focus,
-#eB *:focus {
+#createForm *:focus,
+#editBottle *:focus,
+#addSubjectForm *:focus {
   outline-color: var(--darkgreen);
 }
 
-#fTitle,
-#fDetails,
-#bTitle,
-#bDetails {
+#formTitle,
+#formDetails,
+#bottleTitle,
+#bottleDetails {
   width: calc(100% - 35px);
   font-size: 14px;
 }
 
-#cFHeader,
-#eBHeader {
+#createFormHeader,
+#editBottleHeader,
+#addSubjectFormHeader {
   background-color: gray;
   color: white;
   padding: 15px;
@@ -287,21 +321,21 @@ input::-webkit-calendar-picker-indicator {
   height: 25px;
 }
 
-#cFHeader:hover,
-#eBHeader:hover {
+#createFormHeader:hover,
+#editBottleHeader:hover {
   user-select: none;
   cursor: auto;
 }
 
-.cFLabels,
-.eBLabels {
+.createFormLabels,
+.editBottleLabels {
   line-height: 22px;
   font-size: 13px;
   font-weight: 500;
 }
 
-#cFButtons,
-#eBButtons {
+#createFormButtons,
+#editBottleButtons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -310,8 +344,9 @@ input::-webkit-calendar-picker-indicator {
   bottom: 15px;
 }
 
-#cFButtons *,
-#eBButtons * {
+#createFormButtons *,
+#editBottleButtons *,
+#addSubjectButtons * {
   font-family: "Manrope", sans-serif;
   font-size: 15px;
   text-align: center;
@@ -321,34 +356,39 @@ input::-webkit-calendar-picker-indicator {
   font-weight: 500;
 }
 
-#cFButtons *:hover,
-#eBButtons *:hover {
+#createFormButtons *:hover,
+#editBottleButtons *:hover,
+#addSubjectButtons *:hover {
   cursor: pointer;
 }
 
-#cFCancelButton,
-#eBCancelButton {
+#createFormCancelButton,
+#editBottleCancelButton,
+#addSubjectCancelButton {
   background-color: white;
   color: black;
 }
 
-#cFCancelButton:hover,
-#eBCancelButton:hover {
+#createFormCancelButton:hover,
+#editBottleCancelButton:hover,
+#addSubjectCancelButton:hover {
   background-color: #f3f3f3;
 }
 
-#cFCreateButton,
-#eBSaveButton {
+#createFormcreateBottleButton,
+#editBottleSaveditBottleutton,
+#addSubjectCreateButton {
   background-color: var(--green);
   color: white;
 }
 
-#cFCreateButton:hover,
-#eBSaveButton:hover {
+#createFormcreateBottleButton:hover,
+#editBottleSaveditBottleutton:hover,
+#addSubjectCreateButton:hover {
   background-color: var(--darkgreen);
 }
 
-#cFBottomDecor {
+#createFormBottomDecor {
   position: absolute;
   transform: rotateY(0deg) rotate(45deg);
   border-radius: 5px;
@@ -359,7 +399,7 @@ input::-webkit-calendar-picker-indicator {
   background-color: inherit;
 }
 
-#vB {
+#viewBottle {
   position: absolute;
   top: 50px;
   left: 50px;
@@ -378,7 +418,7 @@ input::-webkit-calendar-picker-indicator {
   display: none;
 }
 
-#vBTrashButton {
+#viewBottleTrashButton {
   position: absolute;
   right: 80px;
   top: 18px;
@@ -390,13 +430,13 @@ input::-webkit-calendar-picker-indicator {
   fill: white;
 }
 
-#vBTrashButton:hover {
+#viewBottleTrashButton:hover {
   background-color: white;
   cursor: pointer;
   fill: var(--redTrashHover);
 }
 
-#vBEditButton {
+#viewBottleEditButton {
   position: absolute;
   right: 45px;
   top: 18px;
@@ -408,13 +448,13 @@ input::-webkit-calendar-picker-indicator {
   fill: white;
 }
 
-#vBEditButton:hover {
+#viewBottleEditButton:hover {
   background-color: white;
   cursor: pointer;
   fill: var(--yellowPenHover);
 }
 
-#vBCloseButton {
+#viewBottleCloseBottleButton {
   position: absolute;
   color: white;
   font-size: 20px;
@@ -427,24 +467,24 @@ input::-webkit-calendar-picker-indicator {
   line-height: 25px;
 }
 
-#vBCloseButton:hover {
+#viewBottleCloseBottleButton:hover {
   position: absolute;
   color: gray;
   background-color: white;
   cursor: pointer;
 }
 
-#vB:hover {
+#viewBottle:hover {
   user-select: text;
 }
 
-#vB * {
+#viewBottle * {
   margin: 0px 10px 0px 13px;
   font-family: "Manrope", sans-serif;
   font-weight: 500;
 }
 
-#vBHeader {
+#viewBottleHeader {
   background-color: gray;
   color: white;
   padding: 20px 10px 10px 10px;
@@ -455,7 +495,7 @@ input::-webkit-calendar-picker-indicator {
   line-height: 22px;
 }
 
-#vBTitle {
+#viewBottleTitle {
   font-size: 20px;
   font-weight: 500;
   margin-left: 16px;
@@ -463,13 +503,13 @@ input::-webkit-calendar-picker-indicator {
   width: 320px;
 }
 
-#vBSubject {
+#viewBottleSubject {
   margin-top: 2px;
   font-size: 15px;
   margin-left: 16px;
 }
 
-#vBDueDate {
+#viewBottleDueDate {
   font-size: 16px;
   position: relative;
   top: 40px;
@@ -483,13 +523,13 @@ input::-webkit-calendar-picker-indicator {
   user-select: none;
 }
 
-#vBDueTime {
+#viewBottleDueTime {
   position: absolute;
   left: 40px;
   top: -10px;
 }
 
-#vBCountdown {
+#viewBottleCountdown {
   font-size: 13px;
   font-weight: 600;
   color: #df9100;
@@ -498,7 +538,7 @@ input::-webkit-calendar-picker-indicator {
   top: 10px;
 }
 
-#vBProgress {
+#viewBottleProgress {
   font-size: 16px;
   position: relative;
   top: 65px;
@@ -513,7 +553,7 @@ input::-webkit-calendar-picker-indicator {
   user-select: none;
 }
 
-#vBPercent {
+#viewBottlePercent {
   position: absolute;
   left: 40px;
   top: -2px;
@@ -570,8 +610,8 @@ input::-webkit-calendar-picker-indicator {
   pointer-events: none;
 }
 
-#vBDetails {
-  font-size: 13px;
+#viewBottleDetails {
+  font-size: 14px;
   height: calc(100% - 260px);
   width: calc(100% - 65px);
   overflow-y: auto;
@@ -583,12 +623,12 @@ input::-webkit-calendar-picker-indicator {
   border-radius: 5px;
 }
 
-#eB {
+#editBottle {
   top: 50px;
   left: 50px;
 }
 
-#bDetails {
+#bottleDetails {
   height: 175px;
 }
 
@@ -666,9 +706,121 @@ input::-webkit-calendar-picker-indicator {
 }
 
 #quoteBy {
-  font-size: 14px;
+  font-size: 13px;
   color: rgb(233, 233, 233);
   opacity: 0;
   transition: opacity 0.3s;
   -webkit-transition: opacity 0.3s;
+}
+
+#addSubjectFormOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.5);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s;
+  -webkit-transition: opacity 0.25s;
+  display: none;
+  opacity: 0;
+}
+
+#addSubjectForm {
+  position: absolute;
+  width: 480px;
+  height: 350px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: black;
+  font-family: "Manrope", sans-serif;
+  box-shadow: 0px 0px 30px rgb(80, 80, 80, 0.4);
+}
+
+#addSubjectFormHeader {
+  margin-bottom: 5px;;
+}
+
+#addSubjectName {
+  line-height: 22px;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 10px 38px;
+}
+
+#subjectName {
+  width: 370px;
+}
+
+#addSubjectColors {
+  margin: auto;
+  margin-top: 20px;
+  display: block;
+  width: 390px;
+}
+
+.colors {
+  width: 35px;
+  height: 35px;
+  padding: 4px;
+  border-radius: 100%;
+  /* transparent placeholder border */
+  border: 6px #ffffff00 solid; 
+}
+
+.colors:hover {
+  cursor: pointer;
+}
+
+#colorGray {
+  fill: var(--subjectGray);
+}
+
+#colorLightBlue {
+  fill: var(--subjectLightBlue);
+}
+
+#colorOrange{
+  fill: var(--subjectOrange);
+}
+
+#colorPink {
+  fill: var(--subjectPink);
+}
+
+#colorGreen {
+  fill: var(--subjectGreen);
+}
+
+#colorPurple {
+  fill: var(--subjectPurple);
+}
+
+#colorTeal {
+  fill: var(--subjectTeal);
+}
+
+#colorRed {
+  fill: var(--subjectRed);
+}
+
+#colorYellow {
+  fill: var(--subjectYellow);
+}
+
+#colorDarkBlue {
+  fill: var(--subjectDarkBlue);
+}
+
+#addSubjectButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: calc(100% - 45px);
+  position: absolute;
+  bottom: 15px;
 }
