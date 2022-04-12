@@ -255,7 +255,8 @@ input::-webkit-calendar-picker-indicator {
   padding-right: 28px;
 }
 
-#createFormAddSubjectButton {
+#createFormAddSubjectButton,
+#editBottleFormAddSubjectButton {
   position: absolute;
   left: 200px;
   padding-left: 10px;
@@ -266,7 +267,8 @@ input::-webkit-calendar-picker-indicator {
   fill:rgb(0, 0, 0);
 }
 
-#createFormAddSubjectButton:hover {
+#createFormAddSubjectButton:hover,
+#editBottleFormAddSubjectButton:hover {
   cursor: pointer;
 }
 
@@ -310,7 +312,8 @@ input::-webkit-calendar-picker-indicator {
 
 #createFormHeader,
 #editBottleFormHeader,
-#addSubjectFormHeader {
+#addSubjectFormHeader,
+#editSubjectsFormHeader {
   background-color: gray;
   color: white;
   padding: 15px;
@@ -456,7 +459,8 @@ input::-webkit-calendar-picker-indicator {
   fill: var(--yellowPenHover);
 }
 
-#viewBottleFormCloseBottleButton {
+#viewBottleFormCloseBottleButton,
+#editSubjectsFormCloseButton {
   position: absolute;
   color: white;
   font-size: 20px;
@@ -469,7 +473,8 @@ input::-webkit-calendar-picker-indicator {
   line-height: 25px;
 }
 
-#viewBottleFormCloseBottleButton:hover {
+#viewBottleFormCloseBottleButton:hover,
+#editSubjectsFormCloseButton:hover {
   position: absolute;
   color: gray;
   background-color: white;
@@ -581,8 +586,8 @@ input::-webkit-calendar-picker-indicator {
 
 #track {
   width: calc(100% - 8px);
-  height: 8px;
-  background: #a8a8a8;
+  height: 6px;
+  background: #b8b8b8;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -594,7 +599,7 @@ input::-webkit-calendar-picker-indicator {
 #track-inner {
   width: 10px;
   height: 100%;
-  background: #ff7a85;
+  background: #777777;
   position: relative;
   left: -15px;
   border-radius: 20px;
@@ -604,7 +609,7 @@ input::-webkit-calendar-picker-indicator {
 #thumb {
   width: 18px;
   height: 18px;
-  background: #ff2c2c;
+  background: #777777;
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -715,6 +720,7 @@ input::-webkit-calendar-picker-indicator {
   -webkit-transition: opacity 0.3s;
 }
 
+#editSubjectsFormOverlay,
 #addSubjectFormOverlay {
   position: absolute;
   width: 100%;
@@ -726,6 +732,30 @@ input::-webkit-calendar-picker-indicator {
   justify-content: center;
   transition: opacity 0.25s;
   -webkit-transition: opacity 0.25s;
+
+}
+
+#editSubjectsForm {
+  position: absolute;
+  width: 480px;
+  height: 350px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: black;
+  font-family: "Manrope", sans-serif;
+  box-shadow: 0px 0px 30px rgb(80, 80, 80, 0.4);
+}
+
+#editSubjectsFormCloseButton {
+  top: 15px;
+  right: 15px;
+}
+
+#addSubjectFormOverlay {
+  background-color: rgb(0, 0, 0, 0.5);
+  z-index: 4;
   display: none;
   opacity: 0;
 }
@@ -744,7 +774,7 @@ input::-webkit-calendar-picker-indicator {
 }
 
 #addSubjectFormHeader {
-  margin-bottom: 5px;;
+  margin-bottom: 5px;
 }
 
 #addSubjectFormName {

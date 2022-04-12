@@ -114,6 +114,7 @@
           <div id="editBottleFormSubject" class="editBottleFormLabels">
             <label for="bottleSubject">Subject</label><br>
             <button id="bottleSubject"><br></button>
+            <svg src="/images/pen.svg" id="editBottleFormAddSubjectButton" onclick="addSubjectForm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" xmlns:v="https://vecta.io/nano"><path d="M0 220l59.34-6.14-53.197-53.199zM132.018 34.787l53.197 53.197L69.568 203.631 16.37 150.434 132.018 34.787zm80.678 25.715c9.738-9.738 9.742-25.527 0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268 0l-17.346 17.347 53.199 53.196 17.345-17.345z"/></svg>
             <ul class="bottleSubjectsList subjectsList"></ul>
             <p>Required</p>
           </div>
@@ -147,8 +148,15 @@
         <div id="quickViewSubject"></div>
       </div>
 
-      <div id="addSubjectFormOverlay">
+      <div id="editSubjectsFormOverlay">
+        <div id="editSubjectsForm">
+          <div id="editSubjectsFormHeader">Edit Subjects</div>
 
+          <div onclick="editSubjectsForm()" id="editSubjectsFormCloseButton">&#10006</div>
+        </div>
+      </div>
+
+      <div id="addSubjectFormOverlay">
         <div id="addSubjectForm">
 
           <div id="addSubjectFormHeader">New Subject</div>
@@ -178,7 +186,6 @@
           </div>
 
         </div>
-
       </div>
 
       <div id="gridFooter">

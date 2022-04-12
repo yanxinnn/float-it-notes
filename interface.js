@@ -7,7 +7,7 @@ var createFormShowing = false;
 var createFormChecked = false;
 var viewBottleFormShowing = false;
 var editBottleFormChecked = false;
-var editBottleFormFormShowing = false;
+var editBottleFormShowing = false;
 var addSubjectFormShowing = false;
 var addSubjectFormChecked = false;
 var formChecked = false;
@@ -71,14 +71,25 @@ function setup() {
   var editBottleFormSubjectList = $('.bottleSubjectsList');
 
   editBottleFormSubjectSelector.click(function() {
-    editBottleFormSubjectSelector.toggleClass('active');
-    editBottleFormSubjectList.slideToggle(200);
+    if (subjectsList.length > 0) { // subjects exist
+      editBottleFormSubjectSelector.toggleClass('active');
+      editBottleFormSubjectList.slideToggle(200);
+    }
+    else { // no subjects exist
+      addSubjectForm(); // brings users directly to add subject form
+    }
   });
 
   editBottleFormSubjectList.mouseup(function(e) {
-    var selectedSubject = $(e.target).text();
-    editBottleFormSubjectSelector.html(selectedSubject); // replaces subject name
-    editBottleFormSubjectSelector.click();
+    var selectedSubjectName = $(e.target).text();
+    editBottleFormSubjectSelector.html(selectedSubjectName); // replaces subject slot with selected subject
+    for (i = 0; i < subjectsList.length; i++) { // header color changes to selected subject color
+      if (subjectsList[i][0] == selectedSubjectName) {
+        changeHeaderColor("editBottleForm", subjectsList[i][1].substring(5));
+        editBottleFormSubjectSelector.click();
+        return;
+      }
+    }
   });
 
   // Create Subject Form
@@ -97,8 +108,8 @@ function draw() {
   if (createFormShowing) {
     if (firstSubjectEmpty) { // if no subjects exist
       if (subjectsList.length > 0) {
-        setInitialCreateFormSubject(); // automatically fills in newly added subject name
-      firstSubjectEmpty = false;
+        setInitialFormSubject("createForm"); // automatically fills in newly added subject name
+        firstSubjectEmpty = false;
       }
     }
     formCheck("createForm");
@@ -109,7 +120,7 @@ function draw() {
       createFormChecked = false;
     }
   }
-  else if (editBottleFormFormShowing) {
+  else if (editBottleFormShowing) {
     formCheck("editBottleForm");
     if (formChecked) {
       editBottleFormChecked = true;
@@ -172,7 +183,8 @@ function setSlider(value) { // Not changing any data, already have data, just ch
   thumb.style.left = `${value}%`;
   track.style.width = `${value}%`;
   document.getElementById("viewBottleFormPercent").innerHTML = value + "% complete";
-}
+  document.getElementById("track-inner").style.background = "var(--subject" + currentBottle.color + ")";
+  document.getElementById("thumb").style.background = "var(--subject" + currentBottle.color + ")";}
 
 class Bottle {
 
@@ -322,7 +334,7 @@ function createForm() { // checks when to show and hide create form
   if (viewBottleFormShowing) { // only one form showing at a time
     viewBottleFormClose();
   }
-  if (editBottleFormFormShowing) {
+  if (editBottleFormShowing) {
     editBottleFormClose();
   }
 
@@ -356,8 +368,9 @@ function editBottleForm() { // Edit Bottle Form
   var editBottleForm = document.getElementById("editBottleForm");
   editBottleForm.style.display = "flex";
   editBottleForm.style.opacity = 1;
-  editBottleFormFormShowing = true;
+  editBottleFormShowing = true;
 
+  // Fills in current bottle information
   var title = currentBottle.title;
   var subject = currentBottle.subject;
   var details = currentBottle.details;
@@ -366,6 +379,7 @@ function editBottleForm() { // Edit Bottle Form
   document.getElementById("bottleSubject").innerText = subject;
   document.getElementById("bottleDetails").value = details;
   document.getElementById("bottleDueDate").value = duedate;
+  changeHeaderColor("editBottleForm", currentBottle.color);
 
 }
 
@@ -373,12 +387,11 @@ function editBottleFormSave() {
 
   if (editBottleFormChecked) {
 
-    var editBottleForm = document.getElementById("editBottleForm");
-
     currentBottle.title = document.getElementById("bottleTitle").value;
     currentBottle.subject = document.getElementById("bottleSubject").innerText;
     currentBottle.details = document.getElementById("bottleDetails").value;
     currentBottle.dueDate = document.getElementById("bottleDueDate").value;
+    changeHeaderColor("editBottleForm", currentBottle.color);
     
     editBottleFormClose(); // Close edit bottle form
     updateBottle(); // Updates changes to view bottle form
@@ -394,7 +407,7 @@ function editBottleFormClose() {
   setTimeout(() => {
     editBottleForm.style.display = "none";
   }, 300);
-  editBottleFormFormShowing = false;
+  editBottleFormShowing = false;
 }
 
 function viewBottleForm() { // View Bottle Form
@@ -436,7 +449,7 @@ function bottlePressed(e) {
   var parent = child.parentNode;
   var i = Array.prototype.indexOf.call(parent.children, child);
 
-  if (editBottleFormFormShowing) { // If in edit mode, stay
+  if (editBottleFormShowing) { // If in edit mode, stay
     return;
   } 
 
@@ -551,8 +564,26 @@ function updateBottle() {
 
 }
 
-function addSubjectForm() { // handles showing and hiding add subject form
+function editSubjectsForm() {
+  var editSubjectsForm = document.getElementById("editSubjectsFormOverlay");
+  if (!editSubjectFormShowing) { // opening form
+    editSubjectsForm.style.display = "flex";
+    editSubjectsForm.style.opacity = 1;
+    editSubjectsFormShowing = true;
+  }
+  else { // closing form
+    editSubjectsForm.style.opacity = 0; 
+    setTimeout(() => {
+      editSubjectsForm.style.display = "none";
+    }, 300);
+    editSubjectsFormShowing = false;
+  }
+}
+
+function addSubjectForm(formName) { // handles showing and hiding add subject form
+  // Resets form checks in case new subject is created
   createFormChecked = false;
+  editBottleFormChecked = false;
   formChecked = false;
 
   var addSubjectForm = document.getElementById("addSubjectFormOverlay");
@@ -617,7 +648,12 @@ function changeHeaderColor(formName, color) {
   document.getElementById(formName + "Header").style.backgroundColor = "var(--subject" + color + ")";
 }
 
-function setInitialCreateFormSubject() {
-  document.getElementById("formSubject").innerText = subjectsList[0][0]; // automatically sets new subject name
-  changeHeaderColor("createForm", subjectsList[0][1].substring(5)); // automatically sets new subject header color
+function setInitialFormSubject(formName) {
+  if (formName == "createForm") { // create bottle form
+    document.getElementById("formSubject").innerText = subjectsList[0][0]; // automatically sets new subject name in create bottle form
+  }
+  else {
+    document.getElementById("bottleSubject").innerText = subjectsList[0][0]; // automatically sets new subject name in edit bottle form
+  }
+  changeHeaderColor(formName, subjectsList[0][1].substring(5)); // automatically sets new subject header color
 }
