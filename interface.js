@@ -487,7 +487,7 @@ function bottleHoveredTrue(e) {
 
   quickViewTitle.innerHTML = bottles[i].title;
   quickViewSubject.innerHTML = bottles[i].subject;
-  quickView.style.boxShadow = "0 0 0 0.4em var(--subject" + subjectsList[i][1].substring(5) + ")";
+  quickView.style.boxShadow = "0 0 0 0.4em var(--subject" + bottles[i].color + ")";
 
 }
 
@@ -506,10 +506,10 @@ function updateBottle() {
   document.getElementById("viewBottleFormDetails").innerText = currentBottle.details;
   changeHeaderColor("viewBottleForm", currentBottle.color); // Header color
   document.getElementById("viewBottleFormCloseBottleButton").addEventListener("mouseover", function () {
-    this.style.color = "var(--subject" + currentBottle.color + ")"; // close button color on hover
+    this.style.fill = "var(--subject" + currentBottle.color + ")"; // close button color on hover
   }) 
   document.getElementById("viewBottleFormCloseBottleButton").addEventListener("mouseout", function () {
-    this.style.color = "white"; // close button color
+    this.style.fill = "white"; // close button color
   }) 
   setSlider(currentBottle.progress);
   
