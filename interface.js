@@ -8,6 +8,7 @@ var createFormChecked = false;
 var viewBottleFormShowing = false;
 var editBottleFormChecked = false;
 var editBottleFormShowing = false;
+var editSubjectsFormShowing = false;
 var addSubjectFormShowing = false;
 var addSubjectFormChecked = false;
 var formChecked = false;
@@ -269,7 +270,7 @@ function formCheck(formName) {
   var title = document.getElementById((formType + "Title"));
   var details = document.getElementById((formType + "Details"));
   var form = document.getElementById(formName);
-  var addButton = document.getElementById(formName + "AddSubjectButton");
+  var addButton = document.getElementById(formName + "EditSubjectsButton");
 
   // Subjects currently separated for testing purposes
   if (subject.innerHTML == "<br>" && title.value == "") {
@@ -391,8 +392,8 @@ function editBottleFormSave() {
     currentBottle.subject = document.getElementById("bottleSubject").innerText;
     currentBottle.details = document.getElementById("bottleDetails").value;
     currentBottle.dueDate = document.getElementById("bottleDueDate").value;
-    changeHeaderColor("editBottleForm", currentBottle.color);
-    
+    currentBottle.color = document.getElementById("editBottleFormHeader").style.backgroundColor.substring(13).slice(0, -1);
+
     editBottleFormClose(); // Close edit bottle form
     updateBottle(); // Updates changes to view bottle form
     viewBottleForm(); // Reopens view bottle form
@@ -566,7 +567,7 @@ function updateBottle() {
 
 function editSubjectsForm() {
   var editSubjectsForm = document.getElementById("editSubjectsFormOverlay");
-  if (!editSubjectFormShowing) { // opening form
+  if (!editSubjectsFormShowing) { // opening form
     editSubjectsForm.style.display = "flex";
     editSubjectsForm.style.opacity = 1;
     editSubjectsFormShowing = true;
@@ -628,15 +629,21 @@ function addSubjectSelectedColor() {
 function addSubjectCreate() {
 
   if (addSubjectFormChecked) {
-    var name = document.getElementById("subjectName").value;
 
     if (subjectsList.length < 8) { // subjects limit
+      var name = document.getElementById("subjectName").value;
+      document.querySelectorAll(".subjectsList").forEach(subjectList => {
+        const newSubject = document.createElement("ul");
+        newSubject.appendChild(document.createTextNode(name)); // giving ul element text of subject name
+        subjectList.appendChild(newSubject); // add to dropdown list for each subjectsList element
+      });
 
-      var newSubject = document.createElement("ul");
-      newSubject.appendChild(document.createTextNode(name)); // giving ul element text of subject name
+      subjectsList.push([name, selectedColor]); // adding new subject info to js list
 
-      subjectsList.push([name, selectedColor]); // adding new subject info to list
-      document.querySelector(".subjectsList").appendChild(newSubject); // add to dropdown list
+      const newSubject = document.createElement("ul");
+      newSubject.appendChild(document.createTextNode(name));
+      newSubject.classList.add("editSubjectsFormSubject");
+      document.getElementById("editSubjectsFormSubjectsList").appendChild(newSubject);
 
       addSubjectForm(); // close subject form
 

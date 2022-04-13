@@ -255,8 +255,8 @@ input::-webkit-calendar-picker-indicator {
   padding-right: 28px;
 }
 
-#createFormAddSubjectButton,
-#editBottleFormAddSubjectButton {
+#createFormEditSubjectsButton,
+#editBottleFormEditSubjectsButton {
   position: absolute;
   left: 200px;
   padding-left: 10px;
@@ -267,8 +267,8 @@ input::-webkit-calendar-picker-indicator {
   fill:rgb(0, 0, 0);
 }
 
-#createFormAddSubjectButton:hover,
-#editBottleFormAddSubjectButton:hover {
+#createFormEditSubjectsButton:hover,
+#editBottleFormEditSubjectsButton:hover {
   cursor: pointer;
 }
 
@@ -351,7 +351,8 @@ input::-webkit-calendar-picker-indicator {
 
 #createFormButtons *,
 #editBottleFormButtons *,
-#addSubjectButtons * {
+#addSubjectButtons *,
+#editSubjectsFormAddSubjectButton {
   font-family: "Manrope", sans-serif;
   font-size: 15px;
   text-align: center;
@@ -381,16 +382,19 @@ input::-webkit-calendar-picker-indicator {
 }
 
 #createFormcreateBottleButton,
-#editBottleFormSaveditBottleFormutton,
-#addSubjectCreateButton {
+#editBottleFormSaveBottleButton,
+#addSubjectCreateButton,
+#editSubjectsFormAddSubjectButton {
   background-color: var(--green);
   color: white;
 }
 
 #createFormcreateBottleButton:hover,
-#editBottleFormSaveditBottleFormutton:hover,
-#addSubjectCreateButton:hover {
+#editBottleFormSaveBottleButton:hover,
+#addSubjectCreateButton:hover,
+#editSubjectsFormAddSubjectButton:hover {
   background-color: var(--darkgreen);
+  cursor: pointer;
 }
 
 #createFormBottomDecor {
@@ -732,7 +736,8 @@ input::-webkit-calendar-picker-indicator {
   justify-content: center;
   transition: opacity 0.25s;
   -webkit-transition: opacity 0.25s;
-
+  display: none;
+  opacity: 0;
 }
 
 #editSubjectsForm {
@@ -753,11 +758,28 @@ input::-webkit-calendar-picker-indicator {
   right: 15px;
 }
 
+#editSubjectsFormAddSubjectButton {
+  right: 15px;
+  position: absolute;
+  bottom: 15px;
+}
+
+#editSubjectsFormSubjects {
+  overflow-y: auto;
+}
+
+.editSubjectsFormSubject {
+  padding: 10px 25px;
+}
+
+.editSubjectsFormSubject:hover {
+  cursor: pointer;
+  background-color: var(--lightgray);
+}
+
 #addSubjectFormOverlay {
   background-color: rgb(0, 0, 0, 0.5);
   z-index: 4;
-  display: none;
-  opacity: 0;
 }
 
 #addSubjectForm {

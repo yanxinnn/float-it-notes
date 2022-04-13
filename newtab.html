@@ -44,7 +44,7 @@
             <label for="formSubject">Subject</label><br>
             <button id="formSubject"><br></button>
             <!-- <svg src="/images/down.svg" id="downIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.751 55.751" xmlns:v="https://vecta.io/nano"><path d="M31.836 43.006c.282-.281.518-.59.725-.912L54.17 20.485c2.107-2.109 2.109-5.528 0-7.638s-5.527-2.109-7.638 0l-18.608 18.61L9.217 12.753a5.4 5.4 0 0 0-7.637 0A5.38 5.38 0 0 0 0 16.571c-.002 1.382.527 2.764 1.582 3.816l21.703 21.706a5.32 5.32 0 0 0 .729.913c1.078 1.078 2.496 1.597 3.91 1.572a5.37 5.37 0 0 0 3.912-1.572z"/></svg> -->
-            <svg src="/images/pen.svg" id="createFormAddSubjectButton" onclick="addSubjectForm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" xmlns:v="https://vecta.io/nano"><path d="M0 220l59.34-6.14-53.197-53.199zM132.018 34.787l53.197 53.197L69.568 203.631 16.37 150.434 132.018 34.787zm80.678 25.715c9.738-9.738 9.742-25.527 0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268 0l-17.346 17.347 53.199 53.196 17.345-17.345z"/></svg>
+            <svg src="/images/pen.svg" id="createFormEditSubjectsButton" onclick="editSubjectsForm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" xmlns:v="https://vecta.io/nano"><path d="M0 220l59.34-6.14-53.197-53.199zM132.018 34.787l53.197 53.197L69.568 203.631 16.37 150.434 132.018 34.787zm80.678 25.715c9.738-9.738 9.742-25.527 0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268 0l-17.346 17.347 53.199 53.196 17.345-17.345z"/></svg>
             <ul class="formSubjectsList subjectsList"></ul>
             <p>Required</p>
           </div>
@@ -114,7 +114,7 @@
           <div id="editBottleFormSubject" class="editBottleFormLabels">
             <label for="bottleSubject">Subject</label><br>
             <button id="bottleSubject"><br></button>
-            <svg src="/images/pen.svg" id="editBottleFormAddSubjectButton" onclick="addSubjectForm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" xmlns:v="https://vecta.io/nano"><path d="M0 220l59.34-6.14-53.197-53.199zM132.018 34.787l53.197 53.197L69.568 203.631 16.37 150.434 132.018 34.787zm80.678 25.715c9.738-9.738 9.742-25.527 0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268 0l-17.346 17.347 53.199 53.196 17.345-17.345z"/></svg>
+            <svg src="/images/pen.svg" id="editBottleFormEditSubjectsButton" onclick="editSubjectsForm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 380" xmlns:v="https://vecta.io/nano"><path d="M0 220l59.34-6.14-53.197-53.199zM132.018 34.787l53.197 53.197L69.568 203.631 16.37 150.434 132.018 34.787zm80.678 25.715c9.738-9.738 9.742-25.527 0-35.268l-17.93-17.93c-9.738-9.74-25.529-9.738-35.268 0l-17.346 17.347 53.199 53.196 17.345-17.345z"/></svg>
             <ul class="bottleSubjectsList subjectsList"></ul>
             <p>Required</p>
           </div>
@@ -138,7 +138,7 @@
 
         <div id="editBottleFormButtons">
           <button onclick="editBottleFormClose(), viewBottleForm()" id="editBottleFormCancelButton">Cancel</button>
-          <button onclick="editBottleFormSave()" id="editBottleFormSaveditBottleFormutton">Save Bottle</button>
+          <button onclick="editBottleFormSave()" id="editBottleFormSaveBottleButton">Save Bottle</button>
         </div>
 
       </div>
@@ -153,6 +153,10 @@
           <div id="editSubjectsFormHeader">Edit Subjects</div>
 
           <div onclick="editSubjectsForm()" id="editSubjectsFormCloseButton">&#10006</div>
+
+          <div id="editSubjectsFormSubjectsList"></div>
+
+          <button onclick="addSubjectForm()" id="editSubjectsFormAddSubjectButton">New Subject</button>
         </div>
       </div>
 
