@@ -68,7 +68,7 @@
 
         <div id="createFormButtons">
           <button onclick="createForm()" id="createFormCancelButton">Cancel</button>
-          <button onclick="createBottle()" id="createFormcreateBottleButton">Create Bottle</button>
+          <button onclick="createBottle()" id="createFormCreateBottleButton">Create Bottle</button>
         </div>
 
       </div>
@@ -155,10 +155,45 @@
 
           <svg src="/images/close.svg" id="editSubjectsFormCloseButton" onclick="editSubjectsForm()" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" xmlns:v="https://vecta.io/nano"><path d="M1082.2 896.6l410.2-410c51.5-51.5 51.5-134.6 0-186.1s-134.6-51.5-186.1 0l-410.2 410L486 300.4c-51.5-51.5-134.6-51.5-186.1 0s-51.5 134.6 0 186.1l410.2 410-410.2 410c-51.5 51.5-51.5 134.6 0 186.1 51.6 51.5 135 51.5 186.1 0l410.2-410 410.2 410c51.5 51.5 134.6 51.5 186.1 0 51.1-51.5 51.1-134.6-.5-186.2l-409.8-409.8z"/></svg>
 
-
           <div id="editSubjectsFormSubjectsList"></div>
 
           <button onclick="addSubjectForm()" id="editSubjectsFormAddSubjectButton">New Subject</button>
+        </div>
+      </div>
+
+      <div id="editSubjectFormOverlay">
+        <div id="editSubjectForm">
+
+          <div id="editSubjectFormHeader">Edit Subject</div>
+
+          <div id="editSubjectFormName">
+            <label for="editSubjectName">Name</label><br>
+            <input type="text" id="editSubjectName" autocomplete="off">
+            <p id="editSubjectNameErrorMessage">Required</p>
+          </div>
+
+          <div id="editSubjectColors">
+            <svg src="/images/colorIcon.svg" id="colorGray2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorPink2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorOrange2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorLightBlue2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorGreen2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorPurple2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorTeal2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorRed2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorYellow2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorDarkBlue2" class="colors" onClick="editSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+          </div>
+
+          <div id="editSubjectFormButtons">
+            <button onclick="editSubjectFormDelete()" id="editSubjectFormDeleteButton">
+              <svg src="/images/trash.svg" id="editSubjectFormTrashIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:v="https://vecta.io/nano"><path d="M432 96h-48V32c0-17.672-14.328-32-32-32H160c-17.672 0-32 14.328-32 32v64H80c-17.672 0-32 14.328-32 32v32h416v-32c0-17.672-14.328-32-32-32zm-240 0V64h128v32H192zM80 480.004C80 497.676 94.324 512 111.996 512h288.012C417.676 512 432 497.676 432 480.008v-.004V192H80v288.004zM320 272c0-8.836 7.164-16 16-16s16 7.164 16 16v160c0 8.836-7.164 16-16 16s-16-7.164-16-16V272zm-80 0c0-8.836 7.164-16 16-16s16 7.164 16 16v160c0 8.836-7.164 16-16 16s-16-7.164-16-16V272zm-80 0c0-8.836 7.164-16 16-16s16 7.164 16 16v160c0 8.836-7.164 16-16 16s-16-7.164-16-16V272z"/></svg>
+              Delete
+            </button>
+            <button onclick="editSubjectForm()" id="editSubjectFormCancelButton">Cancel</button>
+            <button onclick="editSubjectSave()" id="editSubjectFormSaveButton">Save</button>
+          </div>
+
         </div>
       </div>
 
@@ -170,20 +205,20 @@
           <div id="addSubjectFormName">
             <label for="subjectName">Name</label><br>
             <input type="text" id="subjectName" autocomplete="off">
-            <p>Required</p>
+            <p id="subjectNameErrorMessage">Required</p>
           </div>
 
           <div id="addSubjectColors">
-            <svg src="/images/colorIcon.svg" id="colorGray" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorPink" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorOrange" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorLightBlue" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorGreen" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorPurple" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorTeal" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorRed" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorYellow" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
-            <svg src="/images/colorIcon.svg" id="colorDarkBlue" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorGray1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorPink1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorOrange1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorLightBlue1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorGreen1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorPurple1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorTeal1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorRed1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorYellow1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
+            <svg src="/images/colorIcon.svg" id="colorDarkBlue1" class="colors" onClick="addSubjectSelectColor.call(this)" svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.827 451.827" xmlns:v="https://vecta.io/nano"><path d="M225.922 0C101.351 0 .004 101.347.004 225.917s101.347 225.909 225.917 225.909c124.554 0 225.901-101.347 225.901-225.909C451.823 101.347 350.476 0 225.922 0z"/></svg>
           </div>
 
           <div id="addSubjectButtons">
