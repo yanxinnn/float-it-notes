@@ -13,6 +13,7 @@ var editSubjectFormShowing = false;
 var editSubjectFormChecked = false;
 var addSubjectFormShowing = false;
 var addSubjectFormChecked = false;
+var confirmationPopUpShowing = false;
 var formChecked = false;
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -460,6 +461,7 @@ function viewBottleFormClose() {
     viewBottleForm.style.display = "none";
   }, 300);
   viewBottleFormShowing = false;
+  currentBottle = null;
 }
 
 function bottlePressed(e) {
@@ -813,4 +815,42 @@ function setInitialFormSubject(formName) {
     document.getElementById("bottleSubject").textContent = subjectsList[0][0]; // automatically sets new subject name in edit bottle form
   }
   changeHeaderColor(formName, subjectsList[0][1].substring(5) + "0"); // automatically sets new subject header color
+}
+
+function confirmationPopUp() {
+  var confirmationPopUp = document.getElementById("confirmationOverlay");
+  if (!confirmationPopUpShowing) { // opening popup
+    confirmationPopUp.style.display = "flex";
+    confirmationPopUp.style.opacity = 1;
+    confirmationPopUpShowing = true;
+
+    const message = document.getElementById("confirmationHeader");
+    if (viewBottleFormShowing) { // deleting a bottle
+      const name = currentBottle.title;
+      console.log(message);
+      message.textContent = "Delete bottle \"" + name + "\"?";
+    }
+    else if (editSubjectsFormShowing) { // deleting a subject
+      const name = currentSubjectName;
+      message.textContent = "Delete subject \"" + name + "\"?";
+    }
+  }
+  else { // closing form
+    // Hide form
+    confirmationPopUp.style.opacity = 0; 
+    setTimeout(() => {
+      confirmationPopUp.style.display = "none";
+    }, 300);
+    confirmationPopUpShowing = false;
+  }
+}
+
+function confirmationDelete() {
+  if (viewBottleFormShowing) { // deleting a bottle
+    viewBottleFormDelete();
+  }
+  else if (editSubjectsFormShowing) { // deleting a subject
+    editSubjectFormDelete();
+  }
+  confirmationPopUp(); // closes pop up
 }

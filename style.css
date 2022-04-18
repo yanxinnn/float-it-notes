@@ -38,6 +38,10 @@ html {
   overflow: hidden;
 }
 
+input {
+  color-scheme: dark;
+}
+
 ::selection {
   color: rgb(0, 0, 0);
   background: rgb(255, 255, 255);
@@ -422,14 +426,16 @@ input::-webkit-calendar-picker-indicator:hover {
 #createFormButtons *:hover,
 #editBottleFormButtons *:hover,
 #addSubjectButtons *:hover,
-#editSubjectFormButtons *:hover {
+#editSubjectFormButtons *:hover,
+#confirmationButtons *:hover {
   cursor: pointer;
 }
 
 #createFormCancelButton,
 #editBottleFormCancelButton,
 #addSubjectCancelButton,
-#editSubjectFormCancelButton {
+#editSubjectFormCancelButton,
+#confirmationCancelButton {
   background-color: transparent;
   color: rgb(255, 255, 255);
   border: 2px rgb(70, 70, 70) solid;
@@ -438,8 +444,9 @@ input::-webkit-calendar-picker-indicator:hover {
 #createFormCancelButton:hover,
 #editBottleFormCancelButton:hover,
 #addSubjectCancelButton:hover,
-#editSubjectFormCancelButton:hover {
-  border: 2px #54a865 solid;
+#editSubjectFormCancelButton:hover,
+#confirmationCancelButton:hover {
+  border: 2px #8a8a8a solid;
 }
 
 #createFormCreateBottleButton,
@@ -458,6 +465,7 @@ input::-webkit-calendar-picker-indicator:hover {
 #editSubjectsFormAddSubjectButton:hover,
 #editSubjectFormSaveButton:hover {
   background-color: #52aa63;
+  cursor: pointer;
 }
 
 #editSubjectFormTrashIcon {
@@ -818,7 +826,8 @@ input::-webkit-calendar-picker-indicator:hover {
 
 #editSubjectsFormOverlay,
 #addSubjectFormOverlay,
-#editSubjectFormOverlay {
+#editSubjectFormOverlay,
+#confirmationOverlay {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -860,6 +869,7 @@ input::-webkit-calendar-picker-indicator:hover {
 
 #editSubjectsFormSubjectsList {
   overflow-y: auto;
+  overflow-x: hidden;
   height: 272px;
   margin-top: 22px;
   margin-right: 15px;
@@ -888,7 +898,8 @@ input::-webkit-calendar-picker-indicator:hover {
 }
 
 #addSubjectForm,
-#editSubjectForm {
+#editSubjectForm,
+#confirmationPopUp {
   position: absolute;
   width: 480px;
   height: 350px;
@@ -925,9 +936,6 @@ input::-webkit-calendar-picker-indicator:hover {
   margin-top: 20px;
   display: block;
   width: 390px;
-}
-
-#editSubjectFormButtons {
 }
 
 .colors {
@@ -1008,4 +1016,48 @@ input::-webkit-calendar-picker-indicator:hover {
   width: calc(100% - 45px);
   position: absolute;
   bottom: 15px;
+}
+
+#confirmationOverlay {
+  z-index: 6;
+}
+
+#confirmationPopUp {
+  border-radius: 10px;
+  width: 400px;
+  height: 220px;
+  text-align: center;
+  font-size: 13px;
+  color: white;
+}
+
+#confirmationHeader {
+  font-size: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#confirmationButtons {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#confirmationButtons * {
+  border-radius: 50px;
+  padding: 9px 22px;
+  font-size: 14px;
+}
+
+#confirmationDeleteButton {
+  border: transparent;
+  background-color: rgb(233, 59, 59);;
+  color: white;
+}
+
+#confirmationDeleteButton:hover {
+  background-color: var(--redAlertText);
 }
