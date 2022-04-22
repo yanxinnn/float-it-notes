@@ -359,6 +359,7 @@ function createForm() { // checks when to show and hide create form
     editBottleFormClose();
   }
 
+  currentBottle = null;
   clearForm();
   createFormChecked = false;
   formChecked = false;
@@ -461,7 +462,6 @@ function viewBottleFormClose() {
     viewBottleForm.style.display = "none";
   }, 300);
   viewBottleFormShowing = false;
-  currentBottle = null;
 }
 
 function bottlePressed(e) {
@@ -653,7 +653,7 @@ function editSubjectSave() {
     var name = document.getElementById("editSubjectName").value;
     var color = document.getElementById("editSubjectFormHeader").style.backgroundColor;
 
-    if (name == currentSubjectName) { // name unchanged
+    if (name == currentSubjectName) { // name unchanged, only a color change
       for (i = 0; i < subjectsList.length; i++) { 
         if (subjectsList[i][0] == name) { // finds subject in js subjects list by same name
           subjectsList[i][1] = "color" + color.substring(13).slice(0, -1); // change subject in js subjects list color
@@ -678,15 +678,35 @@ function editSubjectSave() {
       }
       // No new subject name conflict
       var index = Array.prototype.indexOf.call(currentSubject.parentNode.children, currentSubject); // gets index of subject in parent div (js subjects list)
+      // Carry name change to all affected existing bottles
+      for (i = 0; i < bottles.length; i++) {
+        if (bottles[i].subject == subjectsList[index][0]) {
+          bottles[i].subject = name;
+        }   
+      }
       subjectsList[index][0] = name; // updates subject name in js subjects list
       currentSubject.lastChild.textContent = name; // updates subject name on edit subjects form
       currentSubjectName = name; // updates current subject's name
+      // Subjects list color change
+      for (i = 0; i < subjectsList.length; i++) { 
+        if (subjectsList[i][0] == name) { // finds subject in js subjects list by same name
+          subjectsList[i][1] = "color" + color.substring(13).slice(0, -1); // change subject in js subjects list color
+          currentSubject.firstChild.style.backgroundColor = color; // change dot color in subjects list
+        }
+      }
       // Update subject name in html create form and edit bottle form subjects list
       document.querySelectorAll(".subjectsList").forEach(subjectList => {
         subjectList.children.item(index).textContent = name;
       });
       document.getElementById("formSubject").textContent = "---- N/A ----"; // resets create bottle subject selector
       document.getElementById("bottleSubject").textContent = "---- N/A ----"; // resets create bottle subject selector
+    }
+    
+    // Carry color change to all affected existing bottles
+    for (i = 0; i < bottles.length; i++) {
+      if (bottles[i].subject == currentSubjectName) {
+        bottles[i].color = color.substring(13).slice(0, -1);
+      }
     }
     editSubjectForm(); // close edit subject form
   }
