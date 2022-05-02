@@ -1,7 +1,7 @@
 * {
-  --darkModeFormBackground: rgb(24, 24, 24);
-  --darkModeFormTextBox: rgb(12, 12, 12);
-  --darkModeFormIconBackground: rgb(70, 70, 70);
+  --darkModeFormBackground: rgb(32, 34, 37);
+  --darkModeFormTextBox: rgb(59, 64, 68);
+  --darkModeFormIconBackground: rgb(91, 95, 100);
   --darkModeFormSubjectHover: rgb(66, 66, 66);
   --green: #3d814b;
   --darkgreen: #316b40;
@@ -10,7 +10,7 @@
   --yellowPenHover: #df9100;
   --redTrashHover: rgb(207, 0, 0);
   --redAlertText: rgb(255, 34, 34);
-  --subjectGray: #808080;
+  --subjectGray: #707070;
   --subjectPink: #DD5F9A;
   --subjectOrange: #E0720B;
   --subjectLightBlue: #2D9CE1;
@@ -68,35 +68,33 @@ input {
 #bottlesArea {
   position: absolute;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 300px);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   column-gap: 100px;
-  row-gap: 40%;
+  row-gap: 0px;
   align-content: center;
+  top: 220px;
 }
 
 #bottlesArea * {
-  height: 100px;
+  transform: scale(0.8) rotate(5deg);
 }
 
 .bottle:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 20px rgb(212, 212, 212);
 }
 
 #quickView {
   position: absolute;
-  width: 280px;
+  width: 350px;
   height: 80px;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
   background: var(--darkModeFormBackground);
   border-radius: 10px;
   display: none;
   z-index: 2;
-  box-shadow: 0 0 0 0.4em gray;
 }
 
 #quickView * {
@@ -121,6 +119,13 @@ input {
   text-overflow: ellipsis;
 }
 
+#quickViewDueDate {
+  font-size: 14px;
+  position: absolute;
+  top: 18px;
+  right: 14px;
+}
+
 #createForm,
 #editBottleForm {
   position: absolute;
@@ -128,7 +133,7 @@ input {
   bottom: 120px;
   width: 440px;
   height: 510px;
-  background: rgb(24, 24, 24);
+  background: var(--darkModeFormBackground);
   border-radius: 10px;
   transition: opacity 0.25s;
   -webkit-transition: opacity 0.25s;
@@ -246,9 +251,7 @@ input::-webkit-calendar-picker-indicator:hover {
 
 #formSubject:focus,
 #bottleSubject:focus {
-  border: solid;
-  border-width: 2px;
-  border-color: var(--green);
+  border: 2px white solid;
 }
 
 .formSubjectsList,
@@ -691,7 +694,7 @@ input::-webkit-calendar-picker-indicator:hover {
 #track {
   width: calc(100% - 8px);
   height: 6px;
-  background: #cacaca;
+  background: #a0a0a0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -778,18 +781,24 @@ input::-webkit-calendar-picker-indicator:hover {
 
 #time {
   font-family: "Roboto", sans-serif;
-  font-size: 150px;
+  font-size: 120px;
   color: white;
   text-align: center;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translate(-50%, 0%);  
 }
 
 #date {
   font-family: "Roboto", sans-serif;
   color: white;
-  font-size: 30px;
-  text-align: center;
-  margin-top: -150px;
+  font-size: 22px;
   font-weight: 400;
+  position: absolute;
+  top: 190px;
+  left: 50%;
+  transform: translate(-50%, 0%);  
 }
 
 #quoteArea {

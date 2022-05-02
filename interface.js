@@ -188,6 +188,17 @@ function onSliderMove(value) { // Getting user slider input and saving, updating
   setSlider(value);
   if (currentBottle) {
     currentBottle.progress = value;
+    // Bottle image progress update
+    for (i = 0; i < bottles.length; i++) { 
+      if (bottles[i] == currentBottle) {
+        if (currentBottle.progress > 0) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple33.gif");
+        }
+        else {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottle.gif");
+        }
+      }
+    }
   }
 }
 
@@ -198,7 +209,8 @@ function setSlider(value) { // Not changing any data, already have data, just ch
   track.style.width = `${value}%`;
   document.getElementById("viewBottleFormPercent").textContent = value + "% complete";
   document.getElementById("track-inner").style.background = "var(--subject" + currentBottle.color + ")";
-  document.getElementById("thumb").style.background = "var(--subject" + currentBottle.color + ")";}
+  document.getElementById("thumb").style.background = "var(--subject" + currentBottle.color + ")";
+}
 
 class Bottle {
 
@@ -238,7 +250,7 @@ function createBottle() { // Creates new bottle div and bottle object
       bottle.addEventListener("mouseleave", bottleHoveredFalse, false);
 
       var bottleImg = document.createElement("img");
-      bottleImg.setAttribute("src", "images/testBottle.PNG");
+      bottleImg.setAttribute("src", "images/bottle.gif");
       bottle.append(bottleImg);
 
       bottlesArea.append(bottle);
@@ -384,7 +396,13 @@ function createForm() { // checks when to show and hide create form
 
 function editBottleForm() { // Edit Bottle Form
 
-  viewBottleFormClose();
+  // Hides View Bottle
+  var viewBottleForm = document.getElementById("viewBottleForm");
+  viewBottleForm.style.opacity = 0;
+  setTimeout(() => {
+    viewBottleForm.style.display = "none";
+  }, 300);
+  viewBottleFormShowing = false;
 
   // Set visible
   var editBottleForm = document.getElementById("editBottleForm");
@@ -450,11 +468,6 @@ function viewBottleFormDelete() {
   }
 }
 
-function viewBottleFormEdit() {
-  viewBottleFormClose();
-  editBottleForm(); // Edit Bottle
-}
-
 function viewBottleFormClose() {
   var viewBottleForm = document.getElementById("viewBottleForm");
   viewBottleForm.style.opacity = 0;
@@ -462,6 +475,7 @@ function viewBottleFormClose() {
     viewBottleForm.style.display = "none";
   }, 300);
   viewBottleFormShowing = false;
+  currentBottle = null;
 }
 
 function bottlePressed(e) {
@@ -477,7 +491,6 @@ function bottlePressed(e) {
 
   if (currentBottle == bottles[i]) { // If bottle pressed is the one already showing, close
     viewBottleFormClose();
-    currentBottle = null;
     return;
   }
 
@@ -500,16 +513,23 @@ function bottleHoveredTrue(e) {
   var quickView = document.getElementById("quickView");
   var quickViewTitle = document.getElementById("quickViewTitle");
   var quickViewSubject = document.getElementById("quickViewSubject");
+  var quickViewDueDate = document.getElementById("quickViewDueDate");
 
   quickView.style.display = "block";
   quickView.style.opacity = 1;
+  if (e.pageX < width/2) {
+    quickView.style.left = e.pageX + 50 + "px";
+  }
+  else {
+    quickView.style.left = e.pageX - 350 + "px";
+  }
   quickView.style.top = e.pageY + 50 + "px";
-  quickView.style.left = e.pageX + 50 + "px";
 
   quickViewTitle.textContent = bottles[i].title;
   quickViewSubject.textContent = bottles[i].subject;
+  var duedate = new Date(bottles[i].dueDate + "EST0:00:01");
+  quickViewDueDate.textContent = monthNames[duedate.getMonth()] + " " + duedate.getDate();
   quickView.style.boxShadow = "0 0 0 0.4em var(--subject" + bottles[i].color + ")";
-
 }
 
 function bottleHoveredFalse(e) {
@@ -648,11 +668,11 @@ function editSubjectFormDelete() {
 }
 
 function editSubjectSave() {
+
+  var name = document.getElementById("editSubjectName").value;
+  var color = document.getElementById("editSubjectFormHeader").style.backgroundColor;
+
   if (editSubjectFormChecked) {
-
-    var name = document.getElementById("editSubjectName").value;
-    var color = document.getElementById("editSubjectFormHeader").style.backgroundColor;
-
     if (name == currentSubjectName) { // name unchanged, only a color change
       for (i = 0; i < subjectsList.length; i++) { 
         if (subjectsList[i][0] == name) { // finds subject in js subjects list by same name
@@ -709,6 +729,12 @@ function editSubjectSave() {
       }
     }
     editSubjectForm(); // close edit subject form
+
+    // Carry changes to open edit bottle form
+    if (editBottleFormShowing) {
+      document.getElementById("editBottleFormHeader").style.backgroundColor = color;
+      document.getElementById("bottleSubject").textContent = name;
+    }
   }
 }
 
@@ -847,7 +873,6 @@ function confirmationPopUp() {
     const message = document.getElementById("confirmationHeader");
     if (viewBottleFormShowing) { // deleting a bottle
       const name = currentBottle.title;
-      console.log(message);
       message.textContent = "Delete bottle \"" + name + "\"?";
     }
     else if (editSubjectsFormShowing) { // deleting a subject
