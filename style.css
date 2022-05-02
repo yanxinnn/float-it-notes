@@ -2,7 +2,7 @@
   --darkModeFormBackground: rgb(32, 34, 37);
   --darkModeFormTextBox: rgb(59, 64, 68);
   --darkModeFormIconBackground: rgb(91, 95, 100);
-  --darkModeFormSubjectHover: rgb(66, 66, 66);
+  --darkModeFormSubjectHover: rgb(111, 113, 117);
   --green: #3d814b;
   --darkgreen: #316b40;
   --lightgray: rgb(221, 221, 221);
@@ -74,13 +74,13 @@ input {
   flex-wrap: wrap;
   justify-content: center;
   column-gap: 100px;
-  row-gap: 0px;
   align-content: center;
-  top: 220px;
+  top: 150px;
 }
 
 #bottlesArea * {
-  transform: scale(0.8) rotate(5deg);
+  transform: scale(0.7) rotate(5deg);
+  margin-bottom: -70px;
 }
 
 .bottle:hover {
@@ -259,11 +259,8 @@ input::-webkit-calendar-picker-indicator:hover {
   display: none;
   position: absolute;
   margin: 0;
-  border: solid;
-  border-width: 2px;
-  border-color: rgb(100, 100, 100);
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.658);
-  background: #0e0e0e;
+  border: 2px white solid;
+  background: var(--darkModeFormBackground);
   width: 260px;
   border-radius: 5px;
   color: white;
@@ -282,6 +279,7 @@ input::-webkit-calendar-picker-indicator:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  border-radius: 3px;
 }
 
 .formSubjectsList > ul:hover,
@@ -347,7 +345,7 @@ input::-webkit-calendar-picker-indicator:hover {
 #editBottleForm *:focus,
 #addSubjectForm *:focus,
 #editSubjectForm *:focus {
-  outline-color: var(--darkgreen);
+  outline-color: white;
 }
 
 #formTitle,
@@ -356,6 +354,12 @@ input::-webkit-calendar-picker-indicator:hover {
 #bottleDetails {
   width: calc(100% - 35px);
   font-size: 14px;
+}
+
+#formDetails:focus, 
+#bottleDetails:focus {
+  border: 2px white solid;
+  outline-width: 0px;
 }
 
 #formTitle,
@@ -781,11 +785,11 @@ input::-webkit-calendar-picker-indicator:hover {
 
 #time {
   font-family: "Roboto", sans-serif;
-  font-size: 120px;
+  font-size: 100px;
   color: white;
   text-align: center;
   position: absolute;
-  top: -50px;
+  top: -30px;
   left: 50%;
   transform: translate(-50%, 0%);  
 }
@@ -796,7 +800,7 @@ input::-webkit-calendar-picker-indicator:hover {
   font-size: 22px;
   font-weight: 400;
   position: absolute;
-  top: 190px;
+  top: 165px;
   left: 50%;
   transform: translate(-50%, 0%);  
 }
@@ -819,7 +823,7 @@ input::-webkit-calendar-picker-indicator:hover {
 }
 
 #quote {
-  font-size: 18px;
+  font-size: 16px;
   color: white;
   width: auto;
   margin-bottom: -10px;
