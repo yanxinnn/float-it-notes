@@ -191,8 +191,14 @@ function onSliderMove(value) { // Getting user slider input and saving, updating
     // Bottle image progress update
     for (i = 0; i < bottles.length; i++) { 
       if (bottles[i] == currentBottle) {
-        if (currentBottle.progress > 0) {
-          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple33.gif");
+        if (currentBottle.progress >= 75) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple75.gif");
+        }
+        else if (currentBottle.progress >= 50) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple50.gif");
+        }
+        else if (currentBottle.progress > 0) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple25.gif");
         }
         else {
           document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottle.gif");
