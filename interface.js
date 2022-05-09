@@ -191,17 +191,20 @@ function onSliderMove(value) { // Getting user slider input and saving, updating
     // Bottle image progress update
     for (i = 0; i < bottles.length; i++) { 
       if (bottles[i] == currentBottle) {
-        if (currentBottle.progress >= 75) {
-          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple75.gif");
+        if (currentBottle.progress == 100) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "100.gif");
+        }
+        else if (currentBottle.progress >= 75) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "75.gif");
         }
         else if (currentBottle.progress >= 50) {
-          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple50.gif");
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "50.gif");
         }
         else if (currentBottle.progress > 0) {
-          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottlepurple25.gif");
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "25.gif");
         }
         else {
-          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottle.gif");
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle.gif");
         }
       }
     }
@@ -256,7 +259,7 @@ function createBottle() { // Creates new bottle div and bottle object
       bottle.addEventListener("mouseleave", bottleHoveredFalse, false);
 
       var bottleImg = document.createElement("img");
-      bottleImg.setAttribute("src", "images/bottle.gif");
+      bottleImg.setAttribute("src", "images/bottles/bottle.gif");
       bottle.append(bottleImg);
 
       bottlesArea.append(bottle);
@@ -312,7 +315,7 @@ function formCheck(formName) {
 
   if (subject.textContent == "---- N/A ----") { // Subject not filled in
     subject.style.border = "2px rgb(202, 0, 0) solid"; // red
-    subject.style.color = "rgb(155, 155, 155)";
+    subject.style.color = "rgb(59, 64, 68)";
     addButton.style.width = "23px";
     addButton.style.height = "20px";
     addButton.style.top = "24px";
@@ -728,13 +731,31 @@ function editSubjectSave() {
       document.getElementById("bottleSubject").textContent = "---- N/A ----"; // resets create bottle subject selector
     }
     
-    // Carry color change to all affected existing bottles
+    // Carry color change to all affected existing bottles and updates visuals
     for (i = 0; i < bottles.length; i++) {
       if (bottles[i].subject == currentSubjectName) {
+
         bottles[i].color = color.substring(13).slice(0, -1);
+
+        if (bottles[i].progress == 100) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + bottles[i].color + "100.gif");
+        }
+        else if (bottles[i].progress >= 75) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + bottles[i].color + "75.gif");
+        }
+        else if (bottles[i].progress >= 50) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + bottles[i].color + "50.gif");
+        }
+        else if (bottles[i].progress > 0) {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + bottles[i].color + "25.gif");
+        }
+        else {
+          document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle.gif");
+        }
       }
     }
     editSubjectForm(); // close edit subject form
+    updateBottle(); // carry changes to view bottle form
 
     // Carry changes to open edit bottle form
     if (editBottleFormShowing) {
