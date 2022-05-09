@@ -25,9 +25,13 @@ var subjectsList = [];
 var selectedColor = "colorGray0";
 var firstSubjectEmpty = true;
 
+var plantsBottomImg;
+var plantsBottom;
+
 //** Preload *************
 
 function preload() {
+  // plantsBottomImg = loadImage("images/plantsBottom.png");
 }
 
 //** Setup *************
@@ -99,6 +103,9 @@ function setup() {
     }
   });
 
+  // Environment
+  // plantsBottom = createSprite(700, 150, 100, 100);
+  // plantsBottom.addImage(plantsBottomImg);
 }
 
 //** Draw ****************
@@ -151,6 +158,8 @@ function draw() {
       addSubjectFormChecked = false;
     }
   }
+
+  drawSprites();
 
 }
 
