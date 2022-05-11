@@ -37,6 +37,10 @@ html {
   overflow: hidden;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 #plantsBottom {
   position: absolute;
   bottom: -20px;

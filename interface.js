@@ -453,6 +453,7 @@ function editBottleFormSave() {
 
     editBottleFormClose(); // Close edit bottle form
     updateBottle(); // Updates changes to view bottle form
+    updateBottleColor(); // Updates bottle color
     viewBottleForm(); // Reopens view bottle form
 
   }
@@ -622,6 +623,28 @@ function updateBottle() {
       document.getElementById("viewBottleFormCountdown").style.color = "#CA0000";
     }
 
+}
+
+function updateBottleColor() {
+  for (i=0; i<bottles.length; i++) {
+    if (bottles[i] == currentBottle) {
+      if (currentBottle.progress == 100) {
+        document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "100.gif");
+      }
+      else if (currentBottle.progress >= 75) {
+        document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "75.gif");
+      }
+      else if (currentBottle.progress >= 50) {
+        document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "50.gif");
+      }
+      else if (currentBottle.progress > 0) {
+        document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle" + currentBottle.color + "25.gif");
+      }
+      else {
+        document.getElementById("bottlesArea").children.item(i).lastChild.setAttribute("src", "images/bottles/bottle.gif");
+      }
+    }
+  }
 }
 
 function editSubjectsForm() {
