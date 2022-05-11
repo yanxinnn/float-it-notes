@@ -324,7 +324,7 @@ function formCheck(formName) {
 
   if (subject.textContent == "---- N/A ----") { // Subject not filled in
     subject.style.border = "2px rgb(202, 0, 0) solid"; // red
-    subject.style.color = "rgb(59, 64, 68)";
+    subject.style.color = "rgb(22, 23, 24)";
     addButton.style.width = "23px";
     addButton.style.height = "20px";
     addButton.style.top = "24px";
